@@ -245,17 +245,17 @@ exec(makePackageJson, (error, stdout, stderr) => {
     // console.log(`INITIALIZE GIT`)
     const gitignore = `${fullPath}/.gitignore`
     const makeIgnore = `touch ${gitignore} && cat > ${gitignore} <<EOF
-    node_modules/
-    .env
-    .DS_Store
-    .vscode/*
-    !.vscode/extensions.json
-    Icon?
-    ![iI]con[_a-zA-Z0-9-]
-    shared
-    Notes/
-    EOF
-    `
+node_modules/
+.env
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+Icon?
+![iI]con[_a-zA-Z0-9-]
+shared
+Notes/
+EOF
+`
     exec(makeIgnore, (error, stdout, stderr) => {
       if (error) {
         console.log(`error: ${error.message}`)
