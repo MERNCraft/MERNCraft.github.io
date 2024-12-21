@@ -1,0 +1,98 @@
+
+
+/* RESPONSIVENESS / RESPONSIVENESS / RESPONSIVENESS */
+
+@media (min-width: 410px) {
+  #menu {
+    font-size: 1rem;
+  }
+}
+
+/* There's not enough room for both footer names.
+   Show the name of the next page, unless the mouse
+  is over the #previous button.
+ */
+@media (max-width: 420px) {
+  footer span:first-of-type {
+    display: none
+  }
+  #previous:hover ~ span:last-of-type {
+    display: none;
+  }
+  #previous:hover + span {
+    display: inline;
+  }
+  #intro .feedback-wide {
+    display: none
+  }
+  #intro .feedback-small {
+    display: block
+  }
+}
+
+/* It's too narrow to show even one name without it wrapping */
+@media (max-width: 240px) {
+  footer span {
+    display: none
+  }
+}
+
+@media (min-width: 750px) {
+  main {
+    padding-left: 6px;
+    padding-right: 6px
+  }
+}
+
+/* Show the menu at all times if the viewport is wide enough
+ * The `min-width` depends on --main-width (725px) and on 
+ * --menu-width (250px), but @media queries don't accept
+ * custom properties as width values, so the value to be 
+ * hard-coded here.
+ */
+@media (min-width: 975px) {
+  main {
+    --extra: calc((100vw - var(--menu-width) - var(--main-width)) / 2);
+    --left-margin: calc(var(--menu-width) + var(--extra));
+    margin-left: var(--left-margin);
+    margin-right: var(--extra);
+  }
+
+  #menu {
+    left: 0;
+  }
+  #menu-icon {
+    display: none;
+  }
+}
+
+@media print {
+  /* Don't print the menu or footer */
+  #menu,
+  footer {
+    display: none !important;
+  }
+
+  /* Print all sections */
+  main {
+    height: auto;
+  }
+
+  p {
+    display: block;
+    page-break-inside: avoid;
+  }
+
+  section {
+    height: auto !important;
+    width: auto !important;
+  }
+
+  aside {
+    border-width: 2px !important;
+  }
+
+  blockquote {
+    border-width: 0;
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "htm-elves",
+  "version": "1.0.0",
+  "scripts": {
+    "new": "node newTutorial.js"
+  },
+  "keywords": [
+    "html",
+    "markdown",
+    "pandoc",
+    "tutorial"
+  ],
+  "author": "James Newton",
+  "license": "MIT",
+  "description": "Workflow to simplify the creation of interactive tutorial pages; write in Markdown, publish on GitHub.",
+  "devDependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}

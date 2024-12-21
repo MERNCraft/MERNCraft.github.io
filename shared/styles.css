@@ -1,0 +1,564 @@
+:root {
+  /* Menu */
+  --menu-width: min(250px, 50vw);
+  --main-width: 725px;
+  /* see @media (min-width: 975px) in media-queries.css */
+
+  --ratio: 0.25;
+  --icon-size: calc(var(--ratio) * var(--menu-width));
+  --list-width: calc(var(--menu-width) - 1rem);
+  --repo-size: 110px;
+  --items-height: calc(100vh - var(--icon-size) - var(--repo-size));
+  --svg-margin: 0.4em;
+  --darkly: #222e;
+  --border: #888;
+  --selected: #000;
+
+  /* Body */
+  --dark: #222;
+  --mid: #888;
+  --light: #ddd;
+  --bright: #fff;
+
+  --min-width: calc(var(--main-width) + var(--menu-width));
+
+  /* Links */
+  --link-color: #fc9;
+  --link-visited: #fdb;
+
+  /* Footer */
+  --footer-height: 2em;
+  --footer-top: calc(100vh - var(--footer-height))
+}
+
+body {
+  background-color: var(--dark);
+  color: var(--light);
+  margin: 0;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+main {
+  position: relative;
+  max-width: var(--main-width);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 0 1em;
+
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: auto;
+}
+
+header {
+  text-align: center;
+}
+
+header h4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  color: #888;
+  text-decoration: none;
+}
+
+/* Hide all sections... */
+section {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  /* Print non last-of-type sections after last-of-type */
+  order: 1;
+}
+
+/* ...except the last, or the :target... */
+section:last-of-type,
+section:target {
+  height: auto;
+  width: auto;
+  overflow: visible;
+  /* Print the last-of-type section first */
+  order: 0;
+}
+
+/* ... and hide the last if a target is showing */
+section:target ~ section:last-of-type {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+p,
+li {
+  line-height: 1.75em
+}
+
+footer {
+  height: var(--footer-height);
+  margin: var(--footer-height) 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer button {
+  display: inline-block;
+  background-color: transparent;
+  color: inherit;
+  box-sizing: border-box;
+  border: 1px outset #000;
+  border-radius: 0.2em;
+  width: var(--footer-height);
+  height: var(--footer-height);
+  cursor: pointer;
+}
+
+footer button:hover {
+  border-color: #6c6;
+}
+
+footer button:active {
+  border-style: inset;
+  background-color: #000; /* only applies to #previous button */
+}
+
+footer button:disabled {
+  background-color: transparent;
+  opacity: 0.2;
+  pointer-events: none; /* to prevent reactions to :hover */
+}
+
+footer span {
+  -webkit-user-select: none; /* Safari */
+          user-select: none;
+}
+
+footer button:hover + span {
+  color: var(--bright);
+}
+
+/* CONTENT / CONTENT / CONTENT / CONTENT / CONTENT / CONTENT */
+
+
+h2,
+h4 {
+  text-decoration: underline;
+}
+
+h5 {
+  font-size: 1rem;
+  font-weight: bold;
+  font-style: italic;
+}
+
+figure {
+  margin: 0;
+
+  figcaption {
+    margin-top: 0.5em;
+  }
+}
+
+pre.wrap,
+pre.wrap code,
+pre.wrap code span
+{
+  white-space: pre-wrap !important; /* override Prism */
+}
+
+
+code b,
+code b * {
+  font-weight: bold;
+  filter: brightness(1.05);
+}
+
+
+code i,
+code i * {
+  /* color: #776!important; */
+  filter: brightness(0.95);
+  font-style: normal;
+}
+
+code:not([class]) {
+  background-color: #444;
+  padding: 0 0.2em;
+  font-size: 14px;
+  white-space: pre
+}
+
+h2 code:not([class]), /* :not([class]) needed for specificity */
+h3 code:not([class]),
+h4 code:not([class]) {
+    font-size: 1.2em;
+}
+
+aside u,
+code u,
+code u * {
+  color: #cc0!important;
+  text-decoration: none;
+}
+
+code s,
+code s * {
+  color: #060!important;
+  text-decoration: none;
+}
+
+aside,
+blockquote {
+  background-color: #020;
+  padding: 0.25em 1em;
+  border-left: 1em solid #040;
+  box-sizing: border-box;
+}
+
+blockquote {
+  background-color: #444;
+  border-color: #666;
+}
+
+blockquote pre:has(code) {
+  --bg: #333;
+  background-color: var(--bg);
+  padding: 0.5em;
+}
+blockquote pre code:not([id])
+{
+  /* background-color: var(--bg); */
+  padding: 0;
+}
+
+aside.center {
+  text-align: center;
+  border-right: 1em solid;
+}
+
+aside:not([class]) code {
+  background-color: #353;
+}
+
+aside:not([class]) pre,
+aside:not([class]) code {
+  background-color: #030;
+}
+
+aside.vscode {
+  background-color: #224;
+  border-left: 1em solid #006;
+}
+
+aside.vscode pre,
+aside.vscode code {
+    background-color: #335;
+}
+
+aside.tip {
+  background-color: #330;
+  border-color: #973
+}
+
+aside.tip pre,
+aside.tip p code {
+    background-color: #440;
+}
+
+aside.warn {
+  background-color: #320;
+  border-color: #643
+}
+
+aside.alert {
+  background-color: #200;
+  border-color: #600;
+}
+
+aside.alert code {
+  background-color: #633;
+}
+
+aside.question {
+  background-color: #202;
+  border-right: 1em solid;
+  border-color: #606;
+}
+
+aside.question code {
+  background-color: #525;
+}
+
+aside.question blockquote {
+  background-color: #424;
+  border-color: #525;
+}
+
+cite {
+  display: block;
+  margin-top: 0.5em;
+  text-align: right;
+}
+
+li,
+br {
+  margin-bottom: 0.5em;
+}
+
+th {
+  padding: 0 1em;
+  vertical-align: top;
+  width: fit-content;
+  white-space: nowrap;
+  text-align: right;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+/* LINKS / LINKS / LINKS / LINKS / LINKS / LINKS / LINKS */
+
+a {
+  color: var(--link-color);
+}
+
+a:hover {
+  text-decoration: none;
+
+  & > * {
+    text-decoration: underline
+  }
+   *::before {
+    content: "#";
+  };
+}
+
+a:visited {
+  color: var(--link-visited);
+}
+
+a.external {
+  color: #9cf;
+}
+
+a.external span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-image: url("./images/external.svg");
+  margin-left: 2px;
+}
+
+a.external:visited {
+  color: #bdf;
+}
+
+/* Footer */
+
+footer span {
+  cursor: pointer
+}
+
+/* The #next button must be listed before #next-name so that
+   button:hover + span will work. But it must be displayed
+  _after_ the name.
+ */
+#next {
+  background-color: #090; /* even when active: call to action */
+  order: 1
+}
+
+/* Don't crowd the names against the buttons */
+#previous-name {
+  margin-left: 0.5em
+}
+
+#next-name {
+  margin-right: 0.5em
+}
+
+/* Push the previous-name and next-name spans apart */
+.spacer {
+  flex: 1
+}
+
+/* Ensure feedback aside on #intro page wraps nicely on all
+   screen sizes
+ */
+#intro .feedback-wide,
+#conclusion .feedback-wide {
+  display: block
+}
+#intro .feedback-small,
+#conclusion .feedback-small {
+  display: none
+}
+
+/* Internal links */
+
+button[data-name] {
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+}
+
+button[data-name]:hover {
+  color: #fff;
+}
+
+[name^=anchor] {
+  background-color: transparent;
+  transition: background-color 2000ms ease-out;
+}
+
+[name^=anchor].highlight {
+  background-color: #666;
+  transition: background-color 0ms;
+}
+
+/* MENU / MENU / MENU / MENU / MENU / MENU / MENU / MENU */
+
+#menu {
+  position: fixed;
+  top: 0;
+  left: calc(-1 * var(--menu-width)); /* offscreen by default */
+  font-size: var(--menu-font-size);
+
+  height: 100vh;
+  width: var(--menu-width);
+  background-color: var(--darkly);
+  border-right: #000;
+  box-shadow: 10px 10px 10px #0009;
+  z-index: 99;
+
+  transition: left .4s linear;
+}
+
+#menu-icon {
+  position: fixed;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  stroke: #fff;
+  top: 0;
+  left: 0;
+  transition-property: left, opacity;
+  transition-duration: .3s, .1s;
+  transition-timing-function: linear, e2e;
+  opacity: 0.2;
+}
+
+#menu.open {
+  left: 0;
+}
+
+#menu.open #menu-icon {
+  opacity: 0.8;
+  left: calc(var(--menu-width) - var(--icon-size)); transition-delay: 0.1s, 0s;
+}
+
+#menu #menu-icon:hover { /* boost specificiy */
+  opacity: 1;
+}
+
+#menu-items {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--icon-size);
+  height: var(--items-height);
+  overflow-y: auto;
+  list-style-type: none;
+
+  padding: 0 0.5em;
+}
+
+#menu { 
+  li {
+    margin-top: 0.25em;
+    border: var(--border) outset 1px;
+    border-radius: 0.5em;
+    color: var(--light);
+
+    &:hover {
+      color: var(--bright);
+    }
+
+    &.target {
+      border-style: inset;
+      background-color: var(--selected)
+    }
+
+    a {
+      display: inline-block;
+      padding: 0.25em 1em;
+      box-sizing: border-box;
+    
+      width: 100%;
+      text-decoration: none;
+      color: inherit;
+      -webkit-user-select: none; /* Safari */
+              user-select: none;
+    }
+  }
+}
+
+div#repo {
+  padding-top: 0.5em;
+  border-top: 1px solid var(--mid);
+
+
+  .feedback {
+    text-decoration: underline;
+  }
+  img {
+    height: var(--footer-height);
+    width: var(--footer-height);
+    margin: 0;
+  }
+  
+  a {
+    color: #fff;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0;
+    margin: 0.5em 0;
+    overflow-y: visible;
+  }
+  a.repo {
+    background-color: #060;
+    margin-top: 0.75em;
+    padding: 0.5em 0;
+    border: 1px solid #080;
+    border-radius: 0.5em;
+  }
+}
+
+.temp {
+  color: #888;
+}
+
+#validate + label::before {
+  content: "Show solution"
+}
+
+#validate + label + div pre {
+  display: none;
+  background: #202;
+}
+
+#validate:checked + label::before {
+  content: "Hide solution"
+}
+
+#validate:checked + label + div pre {
+  display: block
+}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+<title>$title$</title>
+<link rel="stylesheet" href="../shared/styles.css">
+<link rel="stylesheet" href="../shared/media-queries.css">
+<link rel="stylesheet" href="../shared/prism/prism.css">
+
+<script defer src="../shared/prism/prism.js"></script>
+<script defer src="../shared/storage.js"></script>
+<script defer src="../shared/script.js"></script>
+</head>
+
+<body>
+<main id="main">
+<header>
+<h1>$title$</h1>
+<h3>$subtitle$</h3>
+<h4>$month$</h4>
+</header>
+
+$body$
+
+<div class="spacer"></div>
+<footer id="footer">
+<button type="button" id="previous" disabled>&lt;</button>
+<span id="previous-name"></span>
+<span class="spacer"></span>
+<button type="button" id="next">&gt;</button>
+<span id="next-name"></span>
+</footer>
+</main>
+
+<nav
+id="menu"
+class="open"
+>
+<svg
+id="menu-icon"
+viewBox="0 0 100 100"
+preserveAspectRatio="xMidYMid meet"
+>
+<g
+class="menu"
+stroke-width="20"
+stroke-linecap="round"
+>
+<path
+d="M5,20 L5,80 H95 L95,20 z"
+fill="#0000"
+stroke="none"
+/>
+<line
+x1="15"
+y1="20"
+x2="85"
+y2="20"
+/>
+<line
+x1="15"
+y1="50"
+x2="85"
+y2="50"
+/>
+<line
+x1="15"
+y1="80"
+x2="85"
+y2="80"
+/>
+</g>
+</svg>
+
+<ul id="menu-items">
+</ul>
+
+<div id="repo">
+  <a
+    href="https://github.com/MERNCraft/$repo$/issues/new"
+  >
+    Feedback
+  </a>
+
+  <a
+  class="repo"
+  href="https://github.com/MERNCraft/$repo$"
+  >
+  <img src="../shared/svg/github.svg" alt="github logo">
+  <span>GitHub repository</span>
+  </a>
+</div>
+</nav>
+</body>
+</html>
