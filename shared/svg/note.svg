@@ -1,0 +1,39 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 0 100 100"
+  
+  fill="#fff"
+>
+  <g
+    transform-origin="50 50"
+  >
+    <path
+      d="
+      M 1 99
+      l 28 -37
+      l 10 10
+      z
+
+      M 59 91
+      l -50 -50
+      a 36 36 0 0 1 61 14
+      a 36 36 0 0 0 -24 -25
+      l 13 -13
+      l 3 3
+      l 0.125 -0.125
+      l -7 -7
+      l 10 -10
+      a 3 3 0 0 1 5 0
+      l 28 28
+      a 3 3 0 0 1 0 5
+      l -10 10
+      l -7 -7
+      l -0.125 0.125
+      l 3 3
+      l -14 14
+      a 36 36 0 0 1 -11 35
+      "
+    />
+  </g>
+</svg>

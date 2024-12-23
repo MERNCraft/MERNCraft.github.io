@@ -16,17 +16,36 @@ HTM-Elves is a GitHub organization that you can use as a template for your own t
 
 In short, the HTM-Elves workflow allows you to focus on the content of your tutorial (which you write in Markdown) and takes care of publishing it as professionally-packaged HTML.
 
+## Installing Pandoc
+
+The HTM-Elves workflow relies on pandoc, a free open-source software document converter. ***Please [install Pandoc](https://pandoc.org/installing.html) on your development computer before continuing.*** Without pandoc, there will be no magic.
+
+The HTM-Elves repository will provide you with a host of other tools to optimize your experience working with pandoc.
+
 ## Getting started
 
+
+
+
+### Creating a GitHub Organization and its Home Page
+
 1. Create your own [GitHub organization](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations) as a container for your tutorial repositories.
-2. Fork this repository into your new organization. **Use the exact name of your organization as the name of the repository.**
-3. On your development computer, create a new directory to contain all your future tutorials.
-4. Clone your fork of this repository to your new directory.
-5. In a Terminal window open into the repository directory, run `npm run new`. This will ask you for the name of your first tutorial, and then generate a directory for it in the same parent directory. The new directory will contain a folder called `docs/` which itself will contain a folder called `md/` which contains a placeholder file: `99.md`. This `99.md` file will automatically have been converted to a file at `docs/index.html`, and this page should open in your browser, as a proof of concept. The new directory will already contain a Git repository.
-6. In your organization on GitHub, create a new remote repository with the same name as your first Tutorial
-7. Use `git remote add origin <link to your GitHub repo> to connect your local repository to your new GitHub repository.
-8. Run `git push origin -u main` to push your local repository to GitHub
-9. On GitHub, visit the Settings tab, and the Pages section in the right-hand column
+2. Fork this repository into your new organization. **Use the exact name of your organization as the name of the repository, together with the suffix `.github.io`.** For example, if your GitHub Organization is called `MyTutorials`, your fork of this repository must be called `MyTutorials.github.io`.
+4. On GitHub, visit the Settings tab, and the Pages section in the right-hand column
+5.  In the Build And Deployment section, choose `main` as the branch and `docs/` as the source folder, then click Save.
+
+It may take a few minutes for your forked repository to go live.
+
+
+### Publishing a First Tutorial
+
+1. On your development computer, create a new directory to contain all your future tutorials.
+2. Clone your fork of this repository to your new directory.
+3. In a Terminal window, `cd` into the repository directory and then run `npm run new`. This will ask you for the name of your first tutorial, and then generate a directory for it in the same parent directory. The new directory will contain a folder called `docs/` which itself will contain a folder called `md/` which contains a some placeholder Markdown files. These files will automatically have been converted to a file at `docs/index.html`, and this page should open in your browser, as a proof of concept. The new directory will already contain a Git repository.
+4. In your organization on GitHub, create a new remote repository with the same name as your first Tutorial
+5. Use `git remote add origin <link to your GitHub repo> to connect your local repository to your new GitHub repository.
+6. Run `git push -u origin main` to push your local repository to GitHub
+7. Follow steps 4 and 5 from the section *Creating a GitHub Organization and its Home Page* above for your new GitHub repository.
 
 ## Generating your own material
 1. Start writing your tutorial in Markdown files in the `docs/md/` folder. 

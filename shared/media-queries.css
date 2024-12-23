@@ -51,7 +51,7 @@
  * hard-coded here.
  */
 @media (min-width: 975px) {
-  main {
+  main:has(section) {
     --extra: calc((100vw - var(--menu-width) - var(--main-width)) / 2);
     --left-margin: calc(var(--menu-width) + var(--extra));
     margin-left: var(--left-margin);

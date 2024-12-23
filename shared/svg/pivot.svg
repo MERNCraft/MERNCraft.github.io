@@ -1,0 +1,46 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 0 100 100"
+
+  fill="#fff"
+>
+
+  
+  <g
+    transform-origin="50 50"
+  >
+    <path
+      d="
+      M 35 1
+      h -14
+      a 20 20 0 0 0 -20 20
+      v 58
+      a 20 20 0 0 0 20 20
+      h 58
+      a 20 20 0 0 0 20 -20
+      v -14
+      h -15
+      v 12
+      a 7 7 0 0 1 -7 7
+      h -54
+      a 7 7 0 0 1 -7 -7
+      v -54
+      a 7 7 0 0 1 7 -7
+      h 12
+      z
+      "
+    />
+    <path
+      d="
+      M 99 1
+      l -7 49
+      l -12 -12
+      a 95 55 0 0 0 -30 35
+      a 45 45 0 0 1 12 -53
+      l -12 -12
+      z
+      "
+    />
+  </g>
+</svg>

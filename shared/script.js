@@ -9,7 +9,7 @@
  * - Jump to the right section when browser search is used
  */
 
-const storage = new Storage()
+const storage  = new Storage()
 
 const main     = document.getElementById("main")
 const menu     = document.getElementById("menu")
@@ -38,13 +38,15 @@ const sectionIds = []
 const sectionNames = []
 const menuItems = []
 let hash = ""
+// Remember the scroll-top of each section
 let tops = storage.getItem("tops") || {}
 let activeItem
-let noHash
-let blocks // array of elements in main, sorted by top
+let noHash    // id of section:last-child
+let blocks    // array of visible elements in main, sorted by top
 let selectMap // helps scroll to selection on page change
 
 
+// Generate Menu entries from section headers
 const lastIndex = sections.length - 1
 sections.forEach(( section, index ) => {
   const { id } = section
@@ -57,6 +59,7 @@ sections.forEach(( section, index ) => {
       tops[id] = 0
     }
 
+    // Create an li wrapping a link for each section with an id
     const li = document.createElement("li")
     li.setAttribute("id", `menu-item-${id}`)
     const a = document.createElement("a")
@@ -87,7 +90,7 @@ sections.forEach(( section, index ) => {
 })
 
 
-
+// Create an array of all visible elements
 function isVisible(node) {
   const { width, height } = node.getBoundingClientRect()
   return !!width || !!height
@@ -130,7 +133,7 @@ window.addEventListener("hashchange", hashChange)
 function hashChange() {
   // The hash change will show the associated section, and place
   // the section at the top of the viewport.
-  hash = (location.hash || noHash).replace("#", "")
+  hash = (location.hash || noHash || "").replace("#", "")
 
   // Update the section names in the footer
   setPreviousAndNext(hash)
@@ -325,6 +328,8 @@ function setScrollMeasure() {
 
 
 
+// Dealing with Menu interactions //
+
 icon.addEventListener("click", toggleMenu)
 
 function toggleMenu() {
@@ -360,6 +365,7 @@ function toggleMenu() {
 }
 
 
+// Navigating with the footer //
 
 foot.addEventListener("mouseup", goSection)
 
@@ -381,6 +387,8 @@ function goSection({ target }) {
   location.hash = sectionId
 }
 
+
+// Helper, in case data-item is not set for a section //
 
 function getStartOfText(element) {
   const punctuation = [".", ",", ":", ";", "-", "—", " "]
@@ -409,6 +417,7 @@ function getStartOfText(element) {
 }
 
 
+// Dealing with internal links //
 
 document.body.addEventListener("click", showAnchor)
 

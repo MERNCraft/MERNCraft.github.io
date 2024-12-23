@@ -1,0 +1,91 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 0 100 100"
+  
+  stroke="#fff"
+  stroke-width="5"
+  stroke-linecap="round"
+  fill="#fff"
+>
+  <g
+    transform-origin="50 50"
+  >
+    <path
+      stroke="none"
+      d="
+      M 16 91
+      v -8
+      a 5 5 0 0 1 5 -5
+      h 3
+      v -27
+      a 23 20 0 0 1 52 0
+      v 27
+      h 3
+      a 5 5 0 0 1 5 5
+      v 8
+      h -68
+      z
+      M 31 70
+      h 5
+      a 14 32 0 0 1 6 -33
+      a 12 25 0 0 0 -11 33
+      z
+      M 24 78
+      h 52
+      v -1
+      h -52
+      z
+      "
+    />
+    <line
+      x1="3"
+      y1="57"
+      x2="11"
+      y2="57"
+    />
+    <line
+      x1="10"
+      y1="34"
+      x2="17"
+      y2="38"
+    />
+    <line
+      x1="27"
+      y1="17"
+      x2="31"
+      y2="24"
+    />
+    <line
+      x1="50"
+      y1="11"
+      x2="50"
+      y2="19"
+    />
+    <line
+      x1="73"
+      y1="17"
+      x2="69"
+      y2="24"
+    />
+    <line
+      x1="90"
+      y1="34"
+      x2="83"
+      y2="38"
+    />
+    <line
+      x1="97"
+      y1="57"
+      x2="89"
+      y2="57"
+    />
+  </g>
+</svg>
+
+<!-- rx ry x-axis-rotation large-arc-flag sweep-flag dx dy -->
+
+<!-- 
+centre is at 50 57
+outer diameter is 46
+ -->
