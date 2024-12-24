@@ -14,18 +14,26 @@ HTM-Elves is a GitHub organization that you can use as a template for your own t
 * A set of JavaScript and CSS files that add interactive functionality to your output HTML
 * The ability to customize your own layouts and colour schemes.
 
-In short, the HTM-Elves workflow allows you to focus on the content of your tutorial (which you write in Markdown) and takes care of publishing it as professionally-packaged HTML.
+In short, the HTM-Elves workflow allows you to focus on the content of your tutorial (which you write in Markdown) and takes care of publishing it as professionally-packaged HTML on GitHub.
 
-## Installing Pandoc
+## Installing Pandoc and Watchman
 
-The HTM-Elves workflow relies on pandoc, a free open-source software document converter. ***Please [install Pandoc](https://pandoc.org/installing.html) on your development computer before continuing.*** Without pandoc, there will be no magic.
+The HTM-Elves workflow relies on Pandoc, a free open-source software document converter. ***Please [install Pandoc](https://pandoc.org/installing.html) on your development computer before continuing.*** Without Pandoc, there will be no magic.
 
-The HTM-Elves repository will provide you with a host of other tools to optimize your experience working with pandoc.
+To work most efficiently, it is good to see your Markdown files converted to HTML files and displayed in your browser in real time. For this, you can install [Meta's open source Watchman service](https://facebook.github.io/watchman/).
+
+It's possible that Watchman has already been installed on your system by another development tool that you use. To check, run this command in a Terminal window:
+
+```bash
+watchman --version
+```
+
+If you see a response like `command not found: watchman`, you will need to [install Watchman](https://facebook.github.io/watchman/docs/install) yourself. If you see a version number, like `2024.11.04.00`, you're already set. 
 
 ## Getting started
 
-
-
+The HTM-Elves workflow works in conjunction with GitHub. You need to set up your own GitHub Organization for your tutorials, 
+and each tutorial you create will be contained in its own GitHub repository within your Organization.
 
 ### Creating a GitHub Organization and its Home Page
 
@@ -35,7 +43,6 @@ The HTM-Elves repository will provide you with a host of other tools to optimize
 5.  In the Build And Deployment section, choose `main` as the branch and `docs/` as the source folder, then click Save.
 
 It may take a few minutes for your forked repository to go live.
-
 
 ### Publishing a First Tutorial
 
@@ -54,3 +61,6 @@ It may take a few minutes for your forked repository to go live.
 4. Use the root of your new repository to contain the code and assets that demonstrate the finished version of your tutorial
 5. Push your repository to GitHub when the tutorial is ready to share.
 
+## Tips and tricks
+
+For more insight into how to get the most of your HTM-Elves workflow, read the [articles on the HTM-Elves site](https://HTM-Elves.github.io). They were all written using this process.

@@ -6,7 +6,6 @@
  *
  * client.capabilityCheck() calls the 
  *   'watch-project' command, which calls the
- *   'clock'         command, which calls the
  *   'subscribe'     command, which starts watching for changes
  * 
  * client.on('subscription', fileChangeCallback) will trigger
@@ -17,9 +16,19 @@
  */
 
 
-const watchFolder = process.argv.slice(2)[0]
+// npm script "watch" = "node shared/watch.js Repo name"
+// Obtain the absolute path to the `docs/md/` folder in the
+// tutorial repository directory.
+const { resolve, join } = require('path')
+const tutorial = process.argv.slice(2).join(" ") // "Repo name"
+const watchFolder = resolve(
+  __dirname, // /path/to/HTM-Elves/shared
+  "../..",   // /path/to
+  tutorial,  // /path/to/Repo name
+  "docs",    // /path/to/Repo name/docs
+  "md"       // /path/to/Repo name/docs/md
+)
 
-const { join } = require('path')
 const { exec } = require("child_process");
 const { Client } = require('fb-watchman')
 const client = new Client()
@@ -56,38 +65,26 @@ function watchCallback(error, response) {
   if (warning) {
     console.log(`Watchman warning: ${warning}`)
   }
-  console.log(`Watchman is watching ${watch}`)
 
+  const expression = ["allof", ["match", "*.md"]]
+  const fields = ["name", "exists"]
+  const subscription = { expression, fields }
+  const subscribe = ['subscribe', watch, name, subscription]
 
-  client.command(['clock', watch], clockCallback)
+  if (relative_path) {
+    subscription.relative_root = relative_path
+  }
 
+  client.command(subscribe, subscribeCallback)
+  client.on('subscription', fileChangeCallback);
 
-  function clockCallback(error, { clock: since }) {
+  function subscribeCallback(error, { subscribe }) {
     if (error) {
-      console.error("Watchman can't query clock:", error)
+      console.log("SUBSCRIPTION error:", error)
       process.exit()
     }
 
-    const expression = ["allof", ["match", "*.md"]]
-    const fields = ["name", "exists"]
-    const subscription = { expression, fields, since }
-    const subscribe = ['subscribe', watch, name, subscription]
-
-    if (relative_path) {
-      subscription.relative_root = relative_path
-    }
-
-
-    client.command(subscribe, subscribeCallback)
-    client.on('subscription', fileChangeCallback);
-  }
-}
-
-
-function subscribeCallback(error) {
-  if (error) {
-    console.log("SUBSCRIPTION error:", error)
-    process.exit()
+    console.log(`Watchman is watching:\n'${watchFolder}/'\n`);
   }
 }
 
@@ -119,7 +116,7 @@ function fileChangeCallback ({ files, subscription }) {
       // > pandoc
       // > pandoc -o docs/index.html --template=shared/template.html docs/md/*.md
 
-      console.log(`Updated: ${JSON.stringify(
+      console.log(`Treated: ${JSON.stringify(
         files.map(({ name, exists }) => (
           `${name}${exists ? "" : " (deleted)"}`
         )), null, 2)}`)

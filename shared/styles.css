@@ -14,6 +14,13 @@
   --border: #888;
   --selected: #000;
 
+  /* Paging */
+  --pad: calc(var(--icon-size) / 7);
+  --size: calc(var(--icon-size) - 4 * var(--pad));
+  --dim: 0.5;
+  --page-bg: #fff2;
+  --hover: #fff3;
+
   /* Body */
   --dark:      #222;
   --mid:       #888;
@@ -65,41 +72,57 @@ main {
 
 header {
   text-align: center;
+  border-bottom: 1px solid var(--mid);
+
+  & h1 {
+    margin-bottom: 0;
+  }
+  & h3 {
+    margin-top: 0;
+
+    &::empty {
+      height: 0;
+    }
+  }
+  & h4 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    color: #888;
+    text-decoration: none;
+  }
 }
 
-header h4 {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 0;
-  color: #888;
-  text-decoration: none;
-}
-
-/* Hide all sections... */
+/* Show non last-of-type sections after last-of-type */
 section {
-  height: 0;
-  width: 0;
-  overflow: hidden;
-  /* Print non last-of-type sections after last-of-type */
   order: 1;
 }
-
-/* ...except the last, or the :target... */
-section:last-of-type,
-section:target {
-  height: auto;
-  width: auto;
-  overflow: visible;
-  /* Print the last-of-type section first */
-  order: 0;
+section:last-of-type {
+  order: 0
 }
 
-/* ... and hide the last if a target is showing */
-section:target ~ section:last-of-type {
-  height: 0;
-  width: 0;
-  overflow: hidden;
+body:has(#pages:checked) {
+  /* Hide all sections, including last if there's a :target... */
+  section,
+  section:target ~ section:last-of-type {
+    height: 0;
+    width: 0;
+    overflow: hidden;
+  }
+
+  /* ...but show the last, or the :target if there is one */
+  section:last-of-type,
+  section:target {
+    height: auto;
+    width: auto;
+    overflow: auto;
+  }
+
+  /* Ensure short content is pushed to the top */
+  .spacer {
+    order: 1;
+  }
 }
 
 p,
@@ -113,6 +136,7 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  order: 2;
 
   & button {
     display: inline-block;
@@ -152,7 +176,8 @@ footer {
 }
 
 /* No menu or footer if no sections */
-main:not(:has(section)) {
+main:not(:has(section)),
+body:not(:has(#pages:checked)) {
   & ~ #menu,
   footer {
     display: none;
@@ -408,7 +433,7 @@ footer span {
 
 /* Push the previous-name and next-name spans apart */
 .spacer {
-  flex: 1
+  flex: 1;
 }
 
 /* Ensure feedback aside on #intro page wraps nicely on all
@@ -461,7 +486,7 @@ button[data-name]:hover {
   left: 0;
   transition-property: left, opacity;
   transition-duration: .3s, .1s;
-  transition-timing-function: linear, e2e;
+  transition-timing-function: linear, ease-in-out;
   opacity: 0.2;
 }
 
@@ -495,9 +520,12 @@ button[data-name]:hover {
   &.open {
     left: 0;
 
-    &  #menu-icon {
+    & #menu-icon {
       opacity: 0.8;
-      left: calc(var(--menu-width) - var(--icon-size)); transition-delay: 0.1s, 0s;
+      left: calc(var(--menu-width) - var(--icon-size));
+      transition-property: left, opacity;
+      transition-delay: .1s, 0s;
+      transition-timing-function: linear, ease-in-out;
 
       &:hover { /* boost specificiy */
         opacity: 1;
@@ -713,6 +741,78 @@ details {
 
     & summary::before {
       content: url("svg/warn.svg");
+    }
+  }
+}
+
+/* PAGING // PAGING // PAGING // PAGING // PAGING // PAGING */
+
+div.paging {
+  width: calc(var(--size) * 3.6);
+  margin-left: var(--pad);
+
+  display: flex;
+
+  input {
+    position: absolute;
+    left: -999px
+  }
+
+  /* Default display with transparent border... */
+  label {
+    width: var(--size);
+    height: var(--size);
+    background-color: var(--page-bg);
+    /* margin-left: var(--pad); */
+    margin-top: var(--pad);
+    padding: var(--pad);
+    border: 1px solid transparent;
+
+    img {
+      opacity: var(--dim)
+    }
+
+    /* ...and transparent background for selected option */
+    &:has(:checked) {
+      background-color: transparent;
+    }
+
+    /* Hide unselected options unless :hover */
+    &:not(:has(:checked)) {
+      cursor: pointer;
+      display: none;
+    }
+  }
+
+  &:hover {
+    label {
+      /* Show all options */
+      display: block;
+      border-color: var(--page-bg);
+
+      /* Round the ends of the display */
+      &:first-child {
+        border-top-left-radius: var(--size);
+        border-bottom-left-radius: var(--size);
+      }
+      &:last-child {
+        border-top-right-radius: var(--size);
+        border-bottom-right-radius: var(--size);
+      }
+
+      /* Highlight selected option */
+      &:has(:checked) {
+        border-color: white;
+        img {
+          opacity: 1;
+        }
+      }
+
+      /* Show rollover on unselected options */
+      &:not(:has(:checked)):hover {
+        border-color: var(--hover);
+        background-color: var(--hover);
+      }
     }
   }
 }

@@ -144,6 +144,12 @@ function hashChange() {
   // Update the list of block elements that are now visible
   blocks = getVisibleBlocks()
 
+  if (document.querySelector("#scroll:checked")) {
+    // The article is not split into pages. Let the browser
+    // behave as usual.
+    return
+  }
+
   // Scroll all the way to the top (to show the header)...
   main.scrollTo({ top: 0 })
 
