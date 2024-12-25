@@ -120,7 +120,7 @@ body:has(#pages:checked) {
   }
 
   /* Ensure short content is pushed to the top */
-  .spacer {
+  main > .spacer {
     order: 1;
   }
 }

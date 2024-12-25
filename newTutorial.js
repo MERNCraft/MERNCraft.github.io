@@ -470,8 +470,6 @@ EOF`
     })
   })
 
-  // process.exit()
-
 
   // console.log(`npm run pandoc; CONVERT md TO doc/index.html`)
   exec(`cd ${fullPath} && npm run pandoc`, (error, stdout, stderr) => {
@@ -493,13 +491,16 @@ EOF`
 The command ${'`'}npm run new${'`'} creates this new tutorial repository. Initially it contains the following folders, files and symlinks:
 ${'```'}
 .
+├── README.md
 ├── docs
 │   ├── images
 │   ├── index.html
 │   └── md
-│       ├── 99.md
+│       ├── 01-Publishing-to-GitHub.md
+│       ├── 02-Personal-Content.md
+│       ├── 03-Organizing-Your-Writing.md
+│       ├── 99-Introduction.md
 │       └── images -> ../images
-├── README.md
 ├── package.json
 └── shared -> ../<Organization>/shared
 ${'```'}
