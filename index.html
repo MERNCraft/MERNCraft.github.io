@@ -8,11 +8,30 @@
   >
   <link rel="stylesheet" href="docs/assets/styles.css">
   <style>
-    main { max-width: 400px;}
+    main { max-width: 420px;}
     p { text-align: left;}
     div.overview p:first-child { 
       font-size: 1.4em;
       font-weight: bold;
+    }
+    footer {
+      position: relative;
+
+      img {
+        position: absolute;
+        top: -0.5em;
+        right: 0;
+        width: 2em;
+      }
+
+      a {
+        opacity: 0.25;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 1
+        }
+      }
     }
   </style>
   <title class="location">HTM-Elves</title>
@@ -25,14 +44,14 @@
     <div class="overview">
       <p>Publish your own tutorials on GitHub using the HTM-Elves workflow.</p>
       <p>Write your content in Markdown, and let the HTM-Elves generate a sophisticated HTML page for you in real time.</p>
-      <p>Create a separate repository for each tutorial, and push them to your own GitHub Organization.</p>
+      <p>Create separate repositories for each tutorial, and push them to your own GitHub Organization.</p>
     </div>
     <ul>
       <li>
         <a href="/Getting-Started">
           <img src="./shared/svg/env.svg" alt="">
           <div>
-            <h3>Getting Started</h3>
+            <h3>01 - Getting Started</h3>
             <span>Setting up your own HTM-Elves workflow</span>
           </div>
         </a>
@@ -41,7 +60,7 @@
         <a href="/Writing-Your-Own-Tutorials">
           <img src="./shared/svg/pages.svg" alt="">
           <div>
-            <h3>Writing Your Own Tutorials</h3>
+            <h3>02 - Writing Your Own Tutorials</h3>
             <span>Writing in Markdown using pre-defined snippets</span>
           </div>
         </a>
@@ -50,13 +69,18 @@
         <a href="/Building-From-Scratch">
           <img src="./shared/svg/tldr.svg" alt="">
           <div>
-            <h3>Building HTM-Elves from Scratch</h3>
+            <h3>03 - Building HTM-Elves from Scratch</h3>
             <span>Understanding how HTM-Elves works, step-by-step, and learning how to customize it</span>
           </div>
         </a>
       </li>
     </ul>
-    <footer>Updated December 2024</footer>
+    <footer>
+      <span>Updated December 2024</span>
+      <a href="https://github.com/orgs/HTM-Elves/repositories">
+        <img src="shared/svg/github.svg" alt="GitHub">
+      </a>
+    </footer>
   </main>
 </body>
 </html>

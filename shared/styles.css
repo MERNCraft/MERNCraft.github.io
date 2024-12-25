@@ -7,7 +7,7 @@
   --ratio: 0.25;
   --icon-size: calc(var(--ratio) * var(--menu-width));
   --list-width: calc(var(--menu-width) - 1rem);
-  --repo-size: 110px;
+  --repo-size: 118px;
   --items-height: calc(100vh - var(--icon-size) - var(--repo-size));
   --svg-margin: 0.4em;
   --darkly: #222e;
@@ -191,7 +191,7 @@ body:not(:has(#pages:checked)) {
 /* CONTENT // CONTENT // CONTENT // CONTENT // CONTENT */
 
 
-h2,
+/* h2,
 h4 {
   text-decoration: underline;
 }
@@ -200,7 +200,7 @@ h5 {
   font-size: 1rem;
   font-weight: bold;
   font-style: italic;
-}
+} */
 
 figure {
   margin: 0;
@@ -242,7 +242,7 @@ code:not([class]) {
 h2 code:not([class]), /* :not([class]) needed for specificity */
 h3 code:not([class]),
 h4 code:not([class]) {
-    font-size: 1.2em;
+  font-size: 1.2em;
 }
 
 aside u,
@@ -374,17 +374,11 @@ img {
 
 a {
   color: var(--link-color);
+  text-decoration: none;
 }
 
 a:hover {
-  text-decoration: none;
-
-  & > * {
-    text-decoration: underline
-  }
-   *::before {
-    content: "#";
-  };
+  text-decoration: underline;
 }
 
 a:visited {
@@ -564,9 +558,8 @@ button[data-name]:hover {
 
 
 div#repo {
-  padding-top: 0.5em;
+  padding: 0.5em 0;
   border-top: 1px solid var(--mid);
-
 
   .feedback {
     text-decoration: underline;
@@ -585,13 +578,14 @@ div#repo {
     padding: 0;
     margin: 0.5em 0;
     overflow-y: visible;
-  }
-  a.repo {
-    background-color: #060;
-    margin-top: 0.75em;
-    padding: 0.5em 0;
-    border: 1px solid #080;
-    border-radius: 0.5em;
+  
+    &.repo {
+      background-color: #060;
+      margin-top: 1em;
+      padding: 0.5em 0;
+      border: 1px solid #080;
+      border-radius: 0.5em;
+    }
   }
 }
 
@@ -645,10 +639,9 @@ details {
     padding: var(--gap);
     margin: var(--nip);
     background-color: var(--bg-color);
-
   }
 
-  summary::before {
+  summary::after {
     display: inline-block;
     position: absolute;
     right: 0;
@@ -667,7 +660,7 @@ details {
   &.alert {
     --bg-color: var(--alert);
 
-    & summary::before {
+    & summary::after {
       content: url("svg/alert.svg");
     }
   }
@@ -675,7 +668,7 @@ details {
   &.challenge {
     --bg-color: var(--challenge);
 
-    & summary::before {
+    & summary::after {
       content: url("svg/challenge.svg");
     }
   }
@@ -683,7 +676,7 @@ details {
   &.env {
     --bg-color: var(--env);
 
-    & summary::before {
+    & summary::after {
       content: url("svg/env.svg");
     }
   }
@@ -691,7 +684,7 @@ details {
   &.feedback {
     --bg-color: var(--feedback);
 
-    & summary::before {
+    & summary::after {
       content: url("svg/feedback.svg");
     }
   }
@@ -699,7 +692,7 @@ details {
   &.note {
     --bg-color: var(--note);
 
-    & summary::before {
+    & summary::after {
       content: url("svg/note.svg");
     }
   }
@@ -707,7 +700,7 @@ details {
   &.pivot {
     --bg-color: var(--pivot);
 
-    & summary::before {
+    & summary::after {
       content: url("svg/pivot.svg");
     }
   }
@@ -715,7 +708,7 @@ details {
   &.question {
     --bg-color: var(--question);
 
-    & summary::before {
+    & summary::after {
       content: url("svg/question.svg");
     }
   }
@@ -723,7 +716,7 @@ details {
   &.tip {
     --bg-color: var(--tip);
 
-    & summary::before {
+    & summary::after {
       content: url("svg/tip.svg");
     }
   }
@@ -731,7 +724,7 @@ details {
   &.tldr {
     --bg-color: var(--tldr);
 
-    & summary::before {
+    & summary::after {
       content: url("svg/tldr.svg");
     }
   }
@@ -739,7 +732,7 @@ details {
   &.warn {
     --bg-color: var(--warn);
 
-    & summary::before {
+    & summary::after {
       content: url("svg/warn.svg");
     }
   }
@@ -748,6 +741,7 @@ details {
 /* PAGING // PAGING // PAGING // PAGING // PAGING // PAGING */
 
 div.paging {
+  position: absolute;
   width: calc(var(--size) * 3.6);
   margin-left: var(--pad);
 

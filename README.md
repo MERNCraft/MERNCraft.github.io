@@ -50,9 +50,9 @@ It may take a few minutes for your forked repository to go live.
 2. Clone your fork of this repository to your new directory.
 3. In a Terminal window, `cd` into the repository directory and then run `npm run new`. This will ask you for the name of your first tutorial, and then generate a directory for it in the same parent directory. The new directory will contain a folder called `docs/` which itself will contain a folder called `md/` which contains a some placeholder Markdown files. These files will automatically have been converted to a file at `docs/index.html`, and this page should open in your browser, as a proof of concept. The new directory will already contain a Git repository.
 4. In your organization on GitHub, create a new remote repository with the same name as your first Tutorial
-5. Use `git remote add origin <link to your GitHub repo> to connect your local repository to your new GitHub repository.
+5. Use `git remote add origin <link to your GitHub repo>` to connect your local repository to your new GitHub repository.
 6. Run `git push -u origin main` to push your local repository to GitHub
-7. Follow steps 4 and 5 from the section *Creating a GitHub Organization and its Home Page* above for your new GitHub repository.
+7. Follow steps 3 and 4 from the section *Creating a GitHub Organization and its Home Page* above for your new GitHub repository.
 
 ## Generating your own material
 1. Start writing your tutorial in Markdown files in the `docs/md/` folder. 
