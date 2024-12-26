@@ -559,7 +559,7 @@ ${'```'}
 │       ├── 99-Intro.md
 │       └── images -> ../images
 ├── package.json
-└── public -> ../<Organization>/public
+└── public -> ../${repo}/public
 ${'```'}
 
 Visit [the HTM-Elves Organization site](https://HTM-Elves.github.io) for tutorials on how to work with the HTM-Elves workflow.
