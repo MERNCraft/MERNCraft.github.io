@@ -7,14 +7,19 @@
   const isLocal = (/(^[0-9.]*$)|localhost/.test(hostname))
 
   if (protocol === "file:" || isLocal) {
-    // pathname is "/path/to/REPOSITORY-NAME/docs/index.html"
-    hostname = pathname.split("/").slice(-3)[0]
+    // pathname is "/path/to/REPOSITORY-NAME/index.html"
+    hostname = pathname.split("/").slice(-2)[0]
   } else {
     // Trim off `.github.io`
     hostname = hostname.replace(/\..*$/, "")
   }
 
   locations.forEach( location => location.innerHTML = hostname)
+
+  const link = `https://github.com/orgs/${hostname}/repositories`
+
+  const repoAnchor = document.querySelector("footer a")
+  repoAnchor.href = link
 })()
 
 
@@ -38,7 +43,10 @@
 
   function displayTutorials(tutorials) {
     const replace = document.getElementById("replace")
-    replace.innerHTML = "Replace the placeholder links below with working links to your own tutorials.<br><br>See <code>docs/assets/tutorials.json</code> for inspiration."
+    if (replace) {
+      replace.innerHTML = "Replace the placeholder links below with working links to your own tutorials.<br><br>See <code>docs/assets/tutorials.json</code> for inspiration."
+    }
+
     tutorials.forEach(({ name, url, description, icon }) => {
       const li = document.createElement("li")
       const a = document.createElement("a")
