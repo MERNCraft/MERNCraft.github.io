@@ -21,7 +21,7 @@
 
 ;(async function generateTutorialLinksFromJSON(){
   const ul = document.getElementById("tutorials")
-  const URL = "assets/tutorials.json"
+  const URL = "private/tutorials.json"
   let tutorials = []
 
   try {

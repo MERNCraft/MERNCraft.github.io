@@ -16,13 +16,13 @@
  */
 
 
-// npm script "watch" = "node shared/watch.js Repo name"
+// npm script "watch" = "node public/watch.js Repo name"
 // Obtain the absolute path to the `docs/md/` folder in the
 // tutorial repository directory.
 const { resolve, join } = require('path')
 const tutorial = process.argv.slice(2).join(" ") // "Repo name"
 const watchFolder = resolve(
-  __dirname, // /path/to/HTM-Elves/shared
+  __dirname, // /path/to/HTM-Elves/public
   "../..",   // /path/to
   tutorial,  // /path/to/Repo name
   "docs",    // /path/to/Repo name/docs
@@ -114,7 +114,7 @@ function fileChangeCallback ({ files, subscription }) {
 
       // console.log("stdout:", stdout)
       // > pandoc
-      // > pandoc -o docs/index.html --template=shared/template.html docs/md/*.md
+      // > pandoc -o docs/index.html --template=public/template.html docs/md/*.md
 
       console.log(`Treated: ${JSON.stringify(
         files.map(({ name, exists }) => (

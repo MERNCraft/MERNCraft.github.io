@@ -6,81 +6,22 @@
     name="viewport"
     content="width=device-width, initial-scale=1.0"
   >
-  <link rel="stylesheet" href="docs/assets/styles.css">
-  <style>
-    main { max-width: 420px;}
-    p { text-align: left;}
-    div.overview p:first-child { 
-      font-size: 1.4em;
-      font-weight: bold;
-    }
-    footer {
-      position: relative;
-
-      img {
-        position: absolute;
-        top: -0.5em;
-        right: 0;
-        width: 2em;
-      }
-
-      a {
-        opacity: 0.25;
-        cursor: pointer;
-
-        &:hover {
-          opacity: 1
-        }
-      }
-    }
-  </style>
-  <title class="location">HTM-Elves</title>
+  <link rel="stylesheet" href="private/styles.css">
+  <script></script>
+  <title class="location">Title</title>
+  <script defer src="private/script.js"></script>
 </head>
 <body>
   <main>
     <header>
-      <h1 class="location">Welcome to HTM-Elves</h1>
+      <h1>Welcome to <span class="location">Title</span>!</h1>
     </header>
     <div class="overview">
-      <p>Publish your own tutorials on GitHub using the HTM-Elves workflow.</p>
-      <p>Write your content in Markdown, and let the HTM-Elves generate a sophisticated HTML page for you in real time.</p>
-      <p>Create separate repositories for each tutorial, and push them to your own GitHub Organization.</p>
+      <p>Use this area to give an overview of your tutorials.</p>
     </div>
-    <ul>
-      <li>
-        <a href="/Getting-Started">
-          <img src="./shared/svg/env.svg" alt="">
-          <div>
-            <h3>01 - Getting Started</h3>
-            <span>Setting up your own HTM-Elves workflow</span>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a href="/Writing-Your-Own-Tutorials">
-          <img src="./shared/svg/pages.svg" alt="">
-          <div>
-            <h3>02 - Writing Your Own Tutorials</h3>
-            <span>Writing in Markdown using pre-defined snippets</span>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a href="/Building-From-Scratch">
-          <img src="./shared/svg/tldr.svg" alt="">
-          <div>
-            <h3>03 - Building HTM-Elves from Scratch</h3>
-            <span>Understanding how HTM-Elves works, step-by-step, and learning how to customize it</span>
-          </div>
-        </a>
-      </li>
-    </ul>
-    <footer>
-      <span>Updated December 2024</span>
-      <a href="https://github.com/orgs/HTM-Elves/repositories">
-        <img src="shared/svg/github.svg" alt="GitHub">
-      </a>
-    </footer>
+    <p id="replace"></p>
+    <ul id="tutorials"></ul>
+    <footer>Updated December 2024</footer>
   </main>
 </body>
 </html>

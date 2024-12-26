@@ -2,7 +2,8 @@
   "name": "htm-elves",
   "version": "1.0.0",
   "scripts": {
-    "new": "node newTutorial.js"
+    "new": "node newTutorial.js",
+    "demo": "node newTutorial.js Demo"
   },
   "keywords": [
     "html",

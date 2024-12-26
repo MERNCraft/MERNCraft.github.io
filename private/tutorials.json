@@ -2,16 +2,16 @@
   { "name": "Getting Started",
     "url": "#getting-started",
     "description": "Setting up your work environment",
-    "icon": "../shared/svg/env.svg"
+    "icon": "public/svg/env.svg"
   },
   { "name": "Going Deeper",
     "url": "#going-deeper",
     "description": "Exploring the documentation",
-    "icon": "../shared/svg/tldr.svg"
+    "icon": "public/svg/tldr.svg"
   },
   { "name": "Pro Tips",
     "url": "#pro-tips",
     "description": "Exploiting your unfair advantage",
-    "icon": "../shared/svg/challenge.svg"
+    "icon": "public/svg/challenge.svg"
   }
 ]

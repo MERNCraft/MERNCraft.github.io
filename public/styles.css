@@ -22,6 +22,8 @@
   --hover: #fff3;
 
   /* Body */
+  --black:     #000;
+  --darker:    #080808;
   --dark:      #222;
   --mid:       #888;
   --light:     #ddd;
@@ -233,7 +235,7 @@ code i * {
 }
 
 code:not([class]) {
-  background-color: #444;
+  background-color: #3333;
   padding: 0 0.2em;
   font-size: 14px;
   white-space: pre
@@ -624,7 +626,7 @@ details {
   background-color: color-mix(
     in oklab,
     var(--bg-color),
-    var(--dark)
+    var(--darker)
   );
 
   &[open] {
