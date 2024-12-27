@@ -151,7 +151,7 @@ exec(makeDirectories, (error, stdout, stderr) => {
 
 
 
-console.log("ADD publish.js")
+// console.log("ADD publish.js")
 const publish = join(fullPath, "publish.js")
 const root = `${organization}.github.io`
 const script = `touch ${publish} && cat > ${publish} <<EOF
@@ -214,7 +214,6 @@ EOF`
       console.log(`publish.js stderr: ${stderr}`)
       // process.exit()
     }
-    console.log("publish.js stdout:", stdout)
   })
 
 
