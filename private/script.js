@@ -44,7 +44,7 @@
   function displayTutorials(tutorials) {
     const replace = document.getElementById("replace")
     if (replace) {
-      replace.innerHTML = "Replace the placeholder links below with working links to your own tutorials.<br><br>See <code>docs/assets/tutorials.json</code> for inspiration."
+      replace.innerHTML = "Replace the placeholder links below with working links to your own tutorials.<br><br>See <code>private/tutorials.json</code> for inspiration."
     }
 
     tutorials.forEach(({ name, url, description, icon }) => {

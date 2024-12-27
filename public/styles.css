@@ -57,6 +57,7 @@ body {
   color: var(--light);
   margin: 0;
   font-family:Arial, Helvetica, sans-serif;
+  counter-reset: fig 1;
 }
 
 main {
@@ -120,11 +121,12 @@ body:has(#pages:checked) {
     width: auto;
     overflow: auto;
   }
+}
 
-  /* Ensure short content is pushed to the top */
-  main > .spacer {
-    order: 1;
-  }
+/* Ensure short content is pushed to the top */
+main > .spacer {
+  order: 1;
+  flex: 1;
 }
 
 p,
@@ -208,7 +210,15 @@ figure {
   margin: 0;
 
   figcaption {
-    margin-top: 0.5em;
+    margin-bottom: 3em;
+    text-align: center;
+    text-decoration: underline;
+    color: var(--mid);
+
+    &::before {
+      counter-increment: fig 1;
+      content: "Figure " counter(fig) ": ";
+    }
   }
 }
 
@@ -405,31 +415,34 @@ a.external:visited {
 
 /* Footer */
 
-footer span {
-  cursor: pointer
-}
+footer {
+  span {
+    cursor: pointer
+  }
 
-/* The #next button must be listed before #next-name so that
-   button:hover + span will work. But it must be displayed
-  _after_ the name.
- */
-#next {
-  background-color: #090; /* even when active: call to action */
-  order: 1
-}
+  /* The #next button must be listed before #next-name so that
+    button:hover + span will work. But it must be displayed
+    _after_ the name.
+  */
+  #next {
+    background-color: #090; /* even when active: call to action */
+    order: 1
+  }
 
-/* Don't crowd the names against the buttons */
-#previous-name {
-  margin-left: 0.5em
-}
+  /* Don't crowd the names against the buttons */
+  #previous-name {
+    margin-left: 0.5em
+  }
 
-#next-name {
-  margin-right: 0.5em
-}
+  #next-name {
+    margin-right: 0.5em
+  }
 
-/* Push the previous-name and next-name spans apart */
-.spacer {
-  flex: 1;
+  /* Push the previous-name and next-name spans apart */
+  .spacer {
+    flex: 1;
+    order: 0;
+  }
 }
 
 /* Ensure feedback aside on #intro page wraps nicely on all
