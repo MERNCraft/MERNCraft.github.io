@@ -15,8 +15,10 @@
   "license": "MIT",
   "description": "Workflow to simplify the creation of interactive tutorial pages; write in Markdown, publish on GitHub.",
   "devDependencies": {
+    "dotenv": "^16.4.7",
     "fb-watchman": "^2.0.2",
     "pandoc": "^0.2.0",
+    "pandoc-filter": "^2.2.0",
     "readline-sync": "^1.4.10"
   }
 }

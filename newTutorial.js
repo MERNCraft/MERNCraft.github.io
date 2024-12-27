@@ -6,19 +6,22 @@
 const { readdirSync, lstatSync } = require('fs')
 const { resolve, join } = require('path')
 const { exec } = require("child_process");
+require('dotenv').config()
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN
 
 const { question } = require('readline-sync');
-const repo = __dirname.replace(/(^.*\/)|(\..*$)/g, "")
+const organization = __dirname.replace(/(^.*\/)|(\..*$)/g, "")
 const parent = resolve( __dirname, ".." )
 const public = `../${__dirname.split("/").slice(-1)[0]}/public`
 
+let name = process.argv.slice(2).join(" ")
+const isDemo = name === "Demo";
 
-// Get a name for the new tutorial
-const name = (function (){
+// Ensure name for the new tutorial is unique and usable
+name = (function (){
   const TRIM_REGEX = /^-+|-+$/g
   const GIT_REGEX = /([^a-z0-9-]+)|([a-z0-9-]+)/gi
 
-  let name = process.argv.slice(2).join(" ")
   const existing = readdirSync(parent)
     .filter( name => {
       const path = join(parent, name)
@@ -129,12 +132,9 @@ press Ctrl-C to cancel, or enter a unique name:
   }
 })()
 
-const isDemo = name.toLowerCase() === "demo"
-
 
 
 console.log("Creating tutorial:", name)
-// process.exit()
 
 // console.log(`MAKE DIRECTORY STRUCTURE`)
 const fullPath = join(parent, name)
@@ -151,22 +151,91 @@ exec(makeDirectories, (error, stdout, stderr) => {
 
 
 
+console.log("ADD publish.js")
+const publish = join(fullPath, "publish.js")
+const root = `${organization}.github.io`
+const script = `touch ${publish} && cat > ${publish} <<EOF
+const { resolve } = require('path')
+
+const path = resolve("${parent}", "${root}", ".env")
+require('dotenv').config({ path })
+
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN
+
+if (GITHUB_TOKEN) {
+  const headers = {
+    'Accept': 'application/vnd.github+json',
+    'Authorization': 'Bearer %'.replace("%", GITHUB_TOKEN),
+    'X-GitHub-Api-Version': '2022-11-28',
+    'Content-Type': 'application/json',
+  }
+
+  const body = JSON.stringify({
+    source: {
+      "branch":"main",
+      "path":"/docs"
+    }
+  })
+
+  const URL = "https://api.github.com/repos/${organization}/${name}/pages"
+
+  fetch(URL, {
+    method: 'POST',
+    headers,
+    body,
+  })
+    .then(response => response.json())
+    .then(showResponse)
+    .catch(error => console.error("GH-Pages Error:", error));
+
+  function showResponse(response) {
+    const { status, message, html_url } = response
+    if (message) {
+      console.log("GitHub Pages says:%n status:  %s%nmessage: %m"
+      .replaceAll("%n", "\\n")
+      .replace("%s", status)
+      .replace("%m", message)
+      )
+    } else {
+      console.log(
+        "Page will soon be available at %url"
+        .replace("%url", html_url)
+      )
+    }
+  }
+}
+EOF`
+  exec(script, (error, stdout, stderr) => {
+    if (error) {
+      console.log(`publish.js error: ${error.message}`)
+      // process.exit()
+
+    } else if (stderr) {
+      console.log(`publish.js stderr: ${stderr}`)
+      // process.exit()
+    }
+    console.log("publish.js stdout:", stdout)
+  })
+
+
 // console.log(`GENERATE PACKAGE.JSON`)
 const package = join(fullPath, "package.json")
-const watchFolder = join(fullPath, "docs", "md")
 // "pandoc -o index.html --filter public/filter.js --template=public/template.html md/*.md"
 const makePackageJson = `touch ${package} && cat > ${package} <<EOF
 {
   "scripts": {
     "pandoc": "pandoc -o docs/index.html --template=public/template.html docs/md/*.md",
-    "watch": "node public/watch.js ${name}"
+    "filter": "pandoc -o docs/index.html --filter public/filter.js --template=public/template.html docs/md/*.md",
+    "watch": "node public/watch.js ${name}",
+    "publish": "node publish.js"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.7"
   }
 }
 EOF`
 exec(makePackageJson, (error, stdout, stderr) => {
   if (error) {
-    // IGNORE ERRORS LIKE
-
     // error: Command failed: touch /Users/james/MERNCraft/Publisher/HTMElves/Tutorial-3/package.json && cat > /Users/james/MERNCraft/Publisher/HTMElves/Tutorial-3/package.json <<EOF
     // {
     //   "scripts": {
@@ -177,8 +246,8 @@ exec(makePackageJson, (error, stdout, stderr) => {
     // EOF
     // touch: /Users/james/MERNCraft/Publisher/HTMElves/Tutorial-3/package.json: No such file or directory
 
-    // console.log(`package.json error: ${error.message}`)
-    // process.exit()
+    console.log(`package.json error: ${error.message}`)
+    process.exit()
 
   } else if (stderr) {
     console.log(`stderr: ${stderr}`)
@@ -186,79 +255,98 @@ exec(makePackageJson, (error, stdout, stderr) => {
   }
 
 
-  // console.log(`INSTALL public SYMLINK`)
-  let link = join(fullPath, "public")
-  exec(`ln -s ${public} ${link}`, (error, stdout, stderr) => {
+  // console.log(`RUN npm i IN NEW TUTORIAL REPOSITORY`)
+  exec(`cd ${fullPath} && npm i`, (error, stdout, stderr) => {
     if (error) {
-      console.log(`public symlink error: ${error.message}`)
+      console.log(`npm i error: ${error.message}`)
       process.exit()
+
     } else if (stderr) {
-      console.log(`stderr: ${stderr}`)
-      process.exit()
+      // IGNORE ERROR LIKE
+
+      // npm i stderr: (node:28778) ExperimentalWarning: CommonJS module /opt/homebrew/lib/node_modules/npm/node_modules/debug/src/node.js is loading ES Module /opt/homebrew/lib/node_modules/npm/node_modules/supports-color/index.js using require().
+      // Support for loading ES Module in require() is an experimental feature and might change at any time
+      // (Use `node --trace-warnings ...` to show where the warning was created)
+
+      // console.log(`npm i stderr: ${stderr}`)
+      // process.exit()
     }
-  })
+
+
+    // console.log(`INSTALL public SYMLINK`)
+    let link = join(fullPath, "public")
+    exec(`ln -s ${public} ${link}`, (error, stdout, stderr) => {
+      if (error) {
+        console.log(`public symlink error: ${error.message}`)
+        process.exit()
+      } else if (stderr) {
+        console.log(`public symlink stderr: ${stderr}`)
+        process.exit()
+      }
+    })
 
 
 
-  // console.log(`INSTALL images SYMLINK IN docs/md`)
-  link = join(fullPath, "docs", "md")
-  exec(`ln -s "../images" ${link}`, (error, stdout, stderr) => {
-    if (error) {
-      console.log(`images symlink error: ${error.message}`)
-      process.exit()
-    } else if (stderr) {
-      console.log(`stderr: ${stderr}`)
-      process.exit()
-    }
-  })
+    // console.log(`INSTALL images SYMLINK IN docs/md`)
+    link = join(fullPath, "docs", "md")
+    exec(`ln -s "../images" ${link}`, (error, stdout, stderr) => {
+      if (error) {
+        console.log(`images symlink error: ${error.message}`)
+        process.exit()
+      } else if (stderr) {
+        console.log(`images symlink stderr: ${stderr}`)
+        process.exit()
+      }
+    })
 
 
 
-  // console.log(`INITIALIZE GIT`)
-  const gitignore = `${fullPath}/.gitignore`
-  const makeIgnore = `touch ${gitignore} && cat > ${gitignore} <<EOF
-node_modules/
-.env
-.DS_Store
-.vscode/*
-!.vscode/extensions.json
-Icon?
-![iI]con[_a-zA-Z0-9-]
-public
-docs/md/images
-Notes/
-EOF
-`
-  exec(makeIgnore, (error, stdout, stderr) => {
-    if (error) {
-      console.log(`.gitignore error: ${error.message}`)
-      process.exit()
-    } else if (stderr) {
-      console.log(`stderr: ${stderr}`)
-      process.exit()
-    }
-  })
+    // console.log(`INITIALIZE GIT`)
+    const gitignore = `${fullPath}/.gitignore`
+    const makeIgnore = `touch ${gitignore} && cat > ${gitignore} <<EOF
+  node_modules/
+  .env
+  .DS_Store
+  .vscode/*
+  !.vscode/extensions.json
+  Icon?
+  ![iI]con[_a-zA-Z0-9-]
+  public
+  docs/md/images
+  Notes/
+  EOF
+  `
+    exec(makeIgnore, (error, stdout, stderr) => {
+      if (error) {
+        console.log(`.gitignore error: ${error.message}`)
+        process.exit()
+      } else if (stderr) {
+        console.log(`.gitignore stderr: ${stderr}`)
+        process.exit()
+      }
+    })
 
 
-  exec(`cd ${fullPath} && git init`, (error, stdout, stderr) => {
-    if (error) {
-      console.log(`git init error: ${error.message}`)
-      process.exit()
-    } else if (stderr) {
-      console.log(`stderr: ${stderr}`)
-      process.exit()
-    }
-    // console.log("stdout:", stdout)
-    // // Initialized empty Git repository ...
+    exec(`cd ${fullPath} && git init`, (error, stdout, stderr) => {
+      if (error) {
+        console.log(`git init error: ${error.message}`)
+        process.exit()
+      } else if (stderr) {
+        console.log(`git init stderr: ${stderr}`)
+        process.exit()
+      }
+      // console.log("stdout:", stdout)
+      // // Initialized empty Git repository ...
 
-    createAndConvertMDFile()
+      createAndConvertMDFile()
+    })
   })
 })
 
 
 
 function createAndConvertMDFile() {
-  // console.log(`CREATE PLACEHOLDER AT doc/md/99.md`)
+  // console.log(`CREATE PLACEHOLDER .md FILE(S) AT doc/md/`)
   const month = (() => {
     const now = new Date()
     const month = now.toLocaleString("en-GB", { month: "long" })
@@ -276,7 +364,7 @@ function createAndConvertMDFile() {
 title: Demo Tutorial
 subtitle: (replace with your own content)
 month: ${month}
-organization: ${repo}
+organization: ${organization}
 repo: ${name}
 ---
 <section
@@ -308,10 +396,10 @@ You can delete this tutorial from GitHub later, after you have understood the pu
 
 In the explanation that follows, I will imagine that you:
 
-1. Created a GitHub Organization called ${'`'}${repo}${'`'}
-2. Forked the HTM-Elves repository to your Organization, and called your fork ${'`'}${repo}.github.io${'`'}
-3. Cloned ${'`'}${repo}.github.io${'`'} to your development computer
-4. Ran ${'`'}npm run demo${'`'} in a Terminal window open at the root of your ${'`'}${repo}.github.io${'`'} directory.
+1. Created a GitHub Organization called ${'`'}${organization}${'`'}
+2. Forked the HTM-Elves repository to your Organization, and called your fork ${'`'}${organization}.github.io${'`'}
+3. Cloned ${'`'}${organization}.github.io${'`'} to your development computer
+4. Ran ${'`'}npm run demo${'`'} in a Terminal window open at the root of your ${'`'}${organization}.github.io${'`'} directory.
 
 I also imagine that you will use the name ${'`'}${name}${'`'} as the name of the GitHub repository that you will create for this tutorial inside your Organization.
 
@@ -320,7 +408,7 @@ class="pivot"
 open
 >
 <summary>Customizing the Tutorial Names</summary>
-Perhaps you chose your own names for your Organization and for your tutorial repository. In the instructions that follow, please replace ${'`'}${repo}.github.io${'`'} and ${'`'}${name}${'`'} with the actual names that you have chosen.
+Perhaps you chose your own names for your Organization and for your tutorial repository. In the instructions that follow, please replace ${'`'}${organization}.github.io${'`'} and ${'`'}${name}${'`'} with the actual names that you have chosen.
 
 </details>
 </section>
@@ -335,14 +423,14 @@ data-item="Publishing To GitHub"
 >
 <h2><a href="#publishing-to-github">Publishing To GitHub</a></h2>
 
-1. Create a GitHub repository for this tutorial in the GitHub Organization that you created for this purpose. I'll assume that this repository has the address: ${'`'}https://${repo}.github.com/${name}${'`'}
-2. On your development computer, use ${'`'}git remote add origin git@github.com:${repo}/${name}.git${'`'} to connect this local repository with the remote GitHub repository
+1. Create a GitHub repository for this tutorial in the GitHub Organization that you created for this purpose. I'll assume that this repository has the address: ${'`'}https://${organization}.github.com/${name}${'`'}
+2. On your development computer, use ${'`'}git remote add origin git@github.com:${organization}/${name}.git${'`'} to connect this local repository with the remote GitHub repository
 3. Use ${'`'}git push -u origin main${'`'} to push the Initial Commit of this local repository to your remote GitHub repository.
 4. Open the Settings tab in your remote GitHub repository page.
 5. In the Code and automation section in the left column, choose Pages
 6. In the Build and Deployment section of the Pages page, choose the ${'`'}main${'`'} branch and the ${'`'}docs/${'`'} folder and click Save to publish the site stored in the ${'`'}docs/${'`'} folder.
 
-Your tutorial will be published at a URL like [https://${repo}.github.io/${name}](). It may take a few minutes before your site goes live.
+Your tutorial will be published at a URL like [https://${organization}.github.io/${name}](). It may take a few minutes before your site goes live.
 
 <details
 class="pivot"
@@ -429,7 +517,7 @@ EOF`
 title: ${name}
 subtitle: (set subtitle in 99-Intro.md, if required)
 month: ${month}
-organization: ${repo}
+organization: ${organization}
 repo: ${name}
 ---
 <section
@@ -451,15 +539,12 @@ EOF`
 
   mdFiles.forEach(({ file, cat }) => {
     cat = cat.replaceAll("%file", file)
-
-    // console.log("cat:", cat)
-
     exec(cat, (error, stdout, stderr) => {
       if (error) {
-        // console.log(`99.md error: ${error.message}`)
+        // console.log(`Markdown files error: ${error.message}`)
         // process.exit()
       } else if (stderr) {
-        console.log(`stderr: ${stderr}`)
+        console.log(`Markdown files stderr: ${stderr}`)
         process.exit()
       }
     })
@@ -473,13 +558,13 @@ EOF`
       process.exit()
 
     } else if (stderr) {
-      console.log(`stderr: ${stderr}`)
+      console.log(`run pandoc stderr: ${stderr}`)
       process.exit()
     }
 
 
     // console.log("ADD README")
-    let readm
+    let readme
     const md = `${fullPath}/README.md`
     if (isDemo) {
       readme = `touch ${md} && cat > ${md} <<'EOF'
@@ -499,7 +584,7 @@ ${'```'}
 │       ├── 99-Introduction.md
 │       └── images -> ../images
 ├── package.json
-└── public -> ../${repo}/public
+└── public -> ../${organization}/public
 ${'```'}
 
 If the installation is successful, the file at ${'`'}docs/index.html${'`'} will have been generated automatically from the files in ${'`'}docs/md/${'`'}, and displayed in your favourite browser.
@@ -559,7 +644,7 @@ ${'```'}
 │       ├── 99-Intro.md
 │       └── images -> ../images
 ├── package.json
-└── public -> ../${repo}/public
+└── public -> ../${organization}/public
 ${'```'}
 
 Visit [the HTM-Elves Organization site](https://HTM-Elves.github.io) for tutorials on how to work with the HTM-Elves workflow.
@@ -567,43 +652,113 @@ Visit [the HTM-Elves Organization site](https://HTM-Elves.github.io) for tutoria
 Replace the contents of this README.md file with a summary of the tutorial that you are writing.
 `
     }
-
     exec(readme, (error, stdout, stderr) => {
       if (error) {
         console.log(`README error: ${error.message}`)
         process.exit()
       } else if (stderr) {
-        console.log(`stderr: ${stderr}`)
+        console.log(`README stderr: ${stderr}`)
         process.exit()
       }
     })
 
 
-      // console.log(`MAKE FIRST COMMIT`)
-      const commit = `cd ${fullPath} && git add . && git commit -m "Initial commit"`
-      exec(commit, (error, stdout, stderr) => {
-        if (error) {
-          console.log(`First commit error: ${error.message}`)
-          process.exit()
-        } else if (stderr) {
-          console.log(`stderr: ${stderr}`)
-          process.exit()
+    // console.log(`MAKE FIRST COMMIT`)
+    const commit = `cd ${fullPath} && git add . && git commit -m "Initial commit"`
+    exec(commit, (error, stdout, stderr) => {
+      if (error) {
+        console.log(`First commit error: ${error.message}`)
+        process.exit()
+      } else if (stderr) {
+        console.log(`First commit stderr: ${stderr}`)
+        process.exit()
+      }
+      // console.log("stdout:", stdout)
+      // Initial commit: 5 files changed, 145 insertions(+)...
+
+      // console.log(`CREATE GITHUB REPOSITORY?`)
+      // https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#create-an-organization-repository
+      if (GITHUB_TOKEN) {
+        const headers = {
+          'Accept': 'application/vnd.github+json',
+          'Authorization': `Bearer ${GITHUB_TOKEN}`,
+          'X-GitHub-Api-Version': '2022-11-28',
+          'Content-Type': 'application/json',
         }
-        // console.log("stdout:", stdout)
-        // Initial commit: 5 files changed, 145 insertions(+)...
-      })
+
+        const body = JSON.stringify({
+          name,
+          description: '',
+          homepage: `https://${organization}.github.io/${name}`,
+          private: false,
+          has_issues: true,
+          has_projects: true,
+          has_wiki: true,
+        })
+
+        fetch(`https://api.github.com/orgs/${organization}/repos`, {
+          method: 'POST',
+          headers,
+          body,
+        })
+          .then(response => response.json())
+          .then(addRemoteAndPush)
+          .catch(error => console.error(
+            'Create GitHub Repository Error:',
+            error
+          ));
 
 
+        function addRemoteAndPush(data) {
+          // console.log(`ADD REMOTE origin`)
+          const { status, message, ssh_url } = data
+          if (message) {
+            return console.log(
+              `CREATE GITHUB REPOSITORY FAILED
+              status: ${status}
+              message: ${message}
+              `
+            )
+          }
 
-      // console.log("OPEN THE CONVERTED index.html IN BROWSER")
-      const url = `${fullPath}/docs/index.html`
-      const start = (process.platform == 'darwin'
-        ? 'open'
-        : ( process.platform == 'win32'
-            ? 'start'
-            : 'xdg-open'
-        )
-      );
-      exec(start + ' ' + url);
+          const addRemote = `cd ${fullPath} && git remote add origin ${ssh_url}`
+          exec(addRemote, (error, stdout, stderr) => {
+            if (error) {
+              console.log(`Add remote error: ${error.message}`)
+              return
+            } else if (stderr) {
+              console.log(`Add remote stderr: ${stderr}`)
+              return
+            }
+
+            // console.log(`git push -u origin main`)
+            const push = `cd ${fullPath} && git push -u origin main`
+            exec(push, (error, stdout, stderr) => {
+              if (error) {
+                console.log(`push error: ${error.message}`)
+                return
+              } else if (stderr) {
+                // console.log(`push stderr: ${stderr}`)
+                // return
+              }
+              console.log(stdout)
+            })
+          })
+        }
+      }
     })
-  }
+
+
+
+    // console.log("OPEN THE CONVERTED index.html IN BROWSER")
+    const url = `${fullPath}/docs/index.html`
+    const start = (process.platform == 'darwin'
+      ? 'open'
+      : ( process.platform == 'win32'
+          ? 'start'
+          : 'xdg-open'
+      )
+    );
+    exec(start + ' ' + url);
+  })
+}
