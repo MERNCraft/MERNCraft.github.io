@@ -2,7 +2,7 @@
 
 const pandoc = require("pandoc-filter")
 const SWAP_REGEX = /^\$([a-z_.-]+)\$$/
-const CODE_REGEX = /(\w+)-(#(\d*))?(w?)$/
+const CODE_REGEX = /(\w+)-(#(\d*))?(w?)(s?)$/
 const languages = [
   "md",
   "markdown",
@@ -18,6 +18,8 @@ const languages = [
 ]
 
 pandoc.stdio(action);
+
+let item = 0
 
 function action({t: type, c: content}, format, meta) {
   // log(arguments)
@@ -47,6 +49,7 @@ function action({t: type, c: content}, format, meta) {
 function treatClasses(classList, attributes) {
   let noNumbers = false
   let wrap = false
+  let skip = false
   let start
 
   classList.forEach((item, index, array) => {
@@ -58,19 +61,25 @@ function treatClasses(classList, attributes) {
       //   'bash',
       //   '#3',
       //   '3',        // start from
-      //   'w',
+      //   'w',        // wrop
+      //   's',        // skipped lines
       //   index: 0,
       //   input: 'bash-#3w'
       // ]
 
       wrap = wrap || !!match[4] // may be 'w'
+      skip = skip || !!match[5] // may be 's'
 
       if (start = match[3]) {
         attributes.push(["data-start", start])
-      } else if (match[2] || wrap) {
+      } else if (match[2] || wrap || skip) {
         noNumbers = true
       }
-      array[index] = match[1]   // the root class
+      if (skip) {
+        array[0] = "skip"
+      } else {
+        array[index] = match[1]   // the root class
+      }
     }
   })
 
@@ -266,7 +275,7 @@ const { createWriteStream } = require('fs')
 function log(args) {
   const [{t: type, c: content}, format, meta] = args
 
-  if (!item) {
+  if (!item++) {
     logger.log(`format: ${format}
 
 --- <<< meta ---

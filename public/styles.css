@@ -25,6 +25,7 @@
   --black:     #000;
   --darker:    #080808;
   --dark:      #222;
+  --skip:      #666;
   --mid:       #888;
   --light:     #ddd;
   --bright:    #fff;
@@ -266,7 +267,7 @@ code u * {
 
 code s,
 code s * {
-  color: #060!important;
+  background-color: #fff3;
   text-decoration: none;
 }
 
@@ -751,6 +752,11 @@ details {
       content: url("svg/warn.svg");
     }
   }
+
+  /* Override prism for code inside a details element */
+  :not(pre) > code[class*="language-"], pre[class*="language-"] {
+    background: #fff1;
+  }
 }
 
 /* PAGING // PAGING // PAGING // PAGING // PAGING // PAGING */
@@ -823,5 +829,16 @@ div.paging {
         background-color: var(--hover);
       }
     }
+  }
+}
+
+.skip {
+  margin: -0.5em 0;
+  text-align: center;
+  background-color: #2d2d2d;
+  font-size: 1rem;
+
+  & * {
+    color: var(--skip)
   }
 }
