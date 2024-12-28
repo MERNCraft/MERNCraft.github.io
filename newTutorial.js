@@ -219,12 +219,10 @@ EOF`
 
 // console.log(`GENERATE PACKAGE.JSON`)
 const package = join(fullPath, "package.json")
-// "pandoc -o index.html --filter public/filter.js --template=public/template.html md/*.md"
 const makePackageJson = `touch ${package} && cat > ${package} <<EOF
 {
   "scripts": {
-    "pandoc": "pandoc -o docs/index.html --template=public/template.html docs/md/*.md",
-    "filter": "pandoc -o docs/index.html --filter public/filter.js --template=public/template.html docs/md/*.md",
+    "pandoc": "pandoc -o docs/index.html --filter public/filter.js --template=public/template.html docs/md/*.md",
     "watch": "node public/watch.js ${name}",
     "publish": "node publish.js"
   },
@@ -303,17 +301,17 @@ exec(makePackageJson, (error, stdout, stderr) => {
     // console.log(`INITIALIZE GIT`)
     const gitignore = `${fullPath}/.gitignore`
     const makeIgnore = `touch ${gitignore} && cat > ${gitignore} <<EOF
-  node_modules/
-  .env
-  .DS_Store
-  .vscode/*
-  !.vscode/extensions.json
-  Icon?
-  ![iI]con[_a-zA-Z0-9-]
-  public
-  docs/md/images
-  Notes/
-  EOF
+node_modules/
+.env
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+Icon?
+![iI]con[_a-zA-Z0-9-]
+public
+docs/md/images
+Notes/
+EOF
   `
     exec(makeIgnore, (error, stdout, stderr) => {
       if (error) {
