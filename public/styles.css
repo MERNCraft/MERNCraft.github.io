@@ -245,7 +245,7 @@ code i * {
 }
 
 code:not([class]) {
-  background-color: #3333;
+  background-color: #fff3;
   padding: 0 0.2em;
   font-size: 14px;
   white-space: pre
