@@ -57,7 +57,7 @@ body {
   color: var(--light);
   margin: 0;
   font-family:Arial, Helvetica, sans-serif;
-  counter-reset: fig 1;
+  counter-reset: fig 0;
 }
 
 main {
