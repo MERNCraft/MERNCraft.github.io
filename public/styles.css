@@ -58,7 +58,7 @@ body {
   color: var(--light);
   margin: 0;
   font-family:Arial, Helvetica, sans-serif;
-  counter-reset: fig 0;
+  counter-reset: fig menu;
 }
 
 main {
@@ -217,7 +217,7 @@ figure {
     color: var(--mid);
 
     &::before {
-      counter-increment: fig 1;
+      counter-increment: fig;
       content: "Figure " counter(fig) ": ";
     }
   }
@@ -234,14 +234,14 @@ pre.wrap code span
 code b,
 code b * {
   font-weight: bold;
-  filter: brightness(1.05);
+  filter: brightness(1.1);
 }
 
 
 code i,
 code i * {
   /* color: #776!important; */
-  filter: brightness(0.95);
+  filter: brightness(0.9);
   font-style: normal;
 }
 
@@ -568,6 +568,11 @@ button[data-name]:hover {
       color: inherit;
       -webkit-user-select: none; /* Safari */
               user-select: none;
+
+      &::before {
+        counter-increment: menu;
+        content: counter(menu) ". ";
+      }
     }
   }
 }
@@ -594,7 +599,7 @@ div#repo {
     padding: 0;
     margin: 0.5em 0;
     overflow-y: visible;
-  
+
     &.repo {
       background-color: #060;
       margin-top: 1em;
