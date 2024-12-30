@@ -22,7 +22,8 @@ const prevName = document.getElementById("previous-name")
 const next     = document.getElementById("next")
 const nextName = document.getElementById("next-name")
 
-const linkLength = 32
+const linkLength = 32 // number of chars when startOfText is used
+
 
 // CUSTOMIZE THIS FUNCTION WHICH IS CALLED BY getVisibleBlocks //
 const ignoreElement = element => {
@@ -335,7 +336,6 @@ function setScrollMeasure() {
 
 
 // Dealing with Menu interactions //
-
 icon.addEventListener("click", toggleMenu)
 
 function toggleMenu() {
@@ -372,7 +372,6 @@ function toggleMenu() {
 
 
 // Navigating with the footer //
-
 foot.addEventListener("mouseup", goSection)
 
 function goSection({ target }) {
@@ -395,7 +394,6 @@ function goSection({ target }) {
 
 
 // Helper, in case data-item is not set for a section //
-
 function getStartOfText(element) {
   const punctuation = [".", ",", ":", ";", "-", "—", " "]
   const stop = [".", "!", "?", "\""]
@@ -424,7 +422,6 @@ function getStartOfText(element) {
 
 
 // Dealing with internal links //
-
 document.body.addEventListener("click", showAnchor)
 
 function showAnchor({ target }) {
@@ -448,6 +445,18 @@ function showAnchor({ target }) {
       anchor.classList.remove("highlight")
     }, 10)
   }
+}
+
+
+// Ensuring that figcaptions on the first page (last section)
+// are numbered first, and that figcaptions in other sections
+// follow in order
+const lastSection = document.querySelector("section:last-of-type")
+const counter = lastSection.querySelectorAll("figcaption").length
+if (counter) {
+  lastSection.style.counterReset = "fig 0"
+  const firstSection = document.querySelector("section")
+  firstSection.style.counterReset = `fig ${counter}`
 }
 
 
