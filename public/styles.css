@@ -39,7 +39,7 @@
   --pivot:     #03c;
   --question:  #907;
   --tip:       #960;
-  --tldr:      #008;
+  --tldr:      #004;
   --warn:      #630;
 
   --min-width: calc(var(--main-width) + var(--menu-width));
@@ -252,21 +252,25 @@ code:not([class]) {
   white-space: pre
 }
 
+h2 {
+  margin-top: 2em;
+}
+
 h2 code:not([class]), /* :not([class]) needed for specificity */
 h3 code:not([class]),
 h4 code:not([class]) {
   font-size: 1.2em;
 }
 
-aside u,
-code u,
-code u * {
-  color: #cc0!important;
-  text-decoration: none;
-}
-
+aside s,
 code s,
 code s * {
+  color: #600!important;
+  text-decoration: line-through;
+}
+
+code u,
+code u * {
   background-color: #fff3;
   text-decoration: none;
 }
