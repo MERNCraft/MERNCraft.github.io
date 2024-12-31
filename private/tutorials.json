@@ -9,8 +9,13 @@
     "description": "Writing in Markdown using pre-defined snippets",
     "icon": "public/svg/pages.svg"
   },
+  { "name": "03 - Using-CSS-Counters",
+    "url": "/Using-CSS-Counters",
+    "description": "Mini tutorial to accompany \"Writing Your Own Tutorials\"",
+    "icon": "private/icons/counters.webp"
+  },
   { "name": "03 - Building HTM-Elves from Scratch",
-    "url": "/Building-From-Scratch",
+    "_url_": "/Building-From-Scratch",
     "description": "Understanding how HTM-Elves works, step-by-step, and learning how to customize it",
     "icon": "public/svg/tldr.svg"
   }
