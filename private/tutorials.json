@@ -5,7 +5,7 @@
     "icon": "private/icons/cors.webp"
   },
   { "name": "User Registration and Log In",
-    "url": "/express-react",
+    "url": "/register-login",
     "description": "using Express, Mongoose and JSON Web Tokens",
     "icon": "private/icons/login.svg"
   }
