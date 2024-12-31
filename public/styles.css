@@ -30,14 +30,15 @@
   --light:     #ddd;
   --bright:    #fff;
 
-  /* Asides */
+  /* Details */
   --alert:     #600;
-  --challenge: #409;
+  --challenge: #609;
   --env:       #069;
   --feedback:  #064;
   --note:      #040;
   --pivot:     #03c;
   --question:  #907;
+  --solution:  #4069;
   --tip:       #960;
   --tldr:      #004;
   --warn:      #630;
@@ -115,9 +116,9 @@ body:has(#pages:checked) {
     overflow: hidden;
   }
 
-  /* ...but show the last, or the :target if there is one */
-  section:last-of-type,
-  section:target {
+  /* ...but show the :target if there is one, or last, if not */
+  section:target,
+  section:last-of-type {
     height: auto;
     width: auto;
     overflow: auto;
@@ -252,7 +253,7 @@ code:not([class]) {
   white-space: pre
 }
 
-h2 {
+h2, h3 {
   margin-top: 2em;
 }
 
@@ -265,7 +266,7 @@ h4 code:not([class]) {
 aside s,
 code s,
 code s * {
-  color: #600!important;
+  color: #900!important;
   text-decoration: line-through;
 }
 
@@ -284,8 +285,8 @@ blockquote {
 }
 
 blockquote {
-  background-color: #444;
-  border-color: #666;
+  background-color: #5555;
+  border-color: #fff1;
 }
 
 blockquote pre:has(code) {
@@ -373,12 +374,26 @@ br {
   margin-bottom: 0.5em;
 }
 
-th {
-  padding: 0 1em;
-  vertical-align: top;
-  width: fit-content;
-  white-space: nowrap;
-  text-align: right;
+table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  border: 1px solid var(--light);
+
+  th {
+    padding: 0.5em;
+    text-align: left;
+  }
+  td {
+    padding: 0.25em 0.5em;
+  }
+  th:last-child,
+  td:last-child {
+    border-left: 0.5px solid var(--light);
+  }
+
+  thead {
+    border-bottom: 0.5px solid var(--light);
+  }
 }
 
 img {
@@ -660,6 +675,7 @@ details {
   summary {
     position: relative;
     font-size: 1.25em;
+    height: 1.5em;
     font-weight: bold;
     padding: var(--gap);
     margin: var(--nip);
@@ -695,6 +711,14 @@ details {
 
     & summary::after {
       content: url("svg/challenge.svg");
+    }
+  }
+
+  &.solution {
+    --bg-color: var(--solution);
+
+    & summary::after {
+      content: url("svg/solution.svg");
     }
   }
 
@@ -850,4 +874,8 @@ div.paging {
   & * {
     color: var(--skip)
   }
+}
+
+.no-margin * {
+  margin: 1em 0;
 }

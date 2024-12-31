@@ -288,8 +288,8 @@ function scrollToSelection() {
 
   location.hash = id
 }
-const debouncedScroll = debounce(scrollToSelection, 10)
-document.addEventListener("selectionchange", debouncedScroll)
+const debouncedSelection = debounce(scrollToSelection, 10)
+document.addEventListener("selectionchange", debouncedSelection)
 
 
 
@@ -457,6 +457,38 @@ if (counter) {
   lastSection.style.counterReset = "fig 0"
   const firstSection = document.querySelector("section")
   firstSection.style.counterReset = `fig ${counter}`
+}
+
+
+// Updating the selected menu item when scrolling through the
+// page in #scroll mode
+const debouncedScroll = debounce(updateMenuHighlight, 500)
+main.addEventListener("scroll", debouncedScroll)
+function updateMenuHighlight() {
+  if (!document.querySelector("#scroll:checked")) { return }
+  const scrollTop = main.scrollTop
+  // Find the last section whose top is negative
+  let lastId
+  sections.some((section) => {
+    const { top } = section.getBoundingClientRect()
+
+    if (top <= 0) {
+      lastId = section.id
+    } else {
+      return true
+    }
+  })
+  const menuItem = document.getElementById(`menu-item-${lastId}`)
+  const target = document.querySelector(".target")
+
+  if (!menuItem || menuItem === target) {
+    return
+  }
+
+  target.classList.remove("target")
+  menuItem.classList.add("target")
+  menuItem.scrollIntoView({ behavior: "smooth", block: "center"})
+
 }
 
 
