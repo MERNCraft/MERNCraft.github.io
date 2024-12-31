@@ -155,9 +155,10 @@ exec(makeDirectories, (error, stdout, stderr) => {
 const publish = join(fullPath, "publish.js")
 const root = `${organization}.github.io`
 const script = `touch ${publish} && cat > ${publish} <<EOF
-const { resolve } = require('path')
+const { resolve, join } = require('path')
 
-const path = resolve("/Users/james/MERNCraft/HTM-Elves", "HTM-Elves.github.io", ".env")
+const parent = join(__dirname, "..")
+const path = resolve(parent, "${root}", ".env")
 require('dotenv').config({ path })
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN
@@ -180,7 +181,7 @@ const body = JSON.stringify({
   }
 })
 
-const URL = "https://api.github.com/repos/HTM-Elves/${name}/pages"
+const URL = "https://api.github.com/repos/${organization}/${name}/pages"
 
 fetch(URL, {
   method: 'POST',
