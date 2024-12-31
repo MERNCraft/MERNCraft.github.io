@@ -61,6 +61,10 @@ main {
         margin: 0.5em;
       }
 
+      div {
+        margin-left: 0.5em;
+      }
+
       h3, span {
         margin: 0.25em 0;
       }
