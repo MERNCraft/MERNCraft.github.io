@@ -28,6 +28,7 @@
   --skip:      #666;
   --mid:       #888;
   --light:     #ddd;
+  --lighter:   #fff1;
   --bright:    #fff;
 
   /* Details */
@@ -266,8 +267,11 @@ h4 code:not([class]) {
 aside s,
 code s,
 code s * {
-  color: #900!important;
+  color: #c00!important;
   text-decoration: line-through;
+  font-style: italic;
+  filter: none;
+  text-decoration-thickness: 2px;
 }
 
 code u,
@@ -286,7 +290,7 @@ blockquote {
 
 blockquote {
   background-color: #5555;
-  border-color: #fff1;
+  border-color: var(--lighter);
 }
 
 blockquote pre:has(code) {
@@ -658,7 +662,7 @@ details {
   --nip: calc(var(--gap) * -1);
   --bg-color: #fff;
   border: 1px inset var(--bg-color);
-  margin: 1em 0;
+  margin: 2em 0 1em;
   padding: var(--gap);
   overflow: auto;
   background-color: color-mix(
@@ -788,7 +792,7 @@ details {
 
   /* Override prism for code inside a details element */
   :not(pre) > code[class*="language-"], pre[class*="language-"] {
-    background: #fff1;
+    background: var(--lighter);
   }
 }
 
@@ -875,6 +879,18 @@ div.paging {
     color: var(--skip)
   }
 }
+
+details .skip {
+  margin: -0.5em 0;
+  text-align: center;
+  background-color: var(--lighter);
+  font-size: 1rem;
+
+  & * {
+    color: var(--skip)
+  }
+}
+
 
 .no-margin * {
   margin: 1em 0;
