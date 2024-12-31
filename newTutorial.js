@@ -368,11 +368,11 @@ organization: ${organization}
 repo: ${name}
 ---
 <section
-id="intro"
-aria-labelledby="intro"
-data-item="Introduction"
+  id="introduction"
+  aria-labelledby="introduction"
+  data-item="Introduction"
 >
-<h2><a href="#intro">Introduction</a></h2>
+  <h2><a href="#introduction">Introduction</a></h2>
 
 ***Congratulations!***
 
@@ -521,11 +521,11 @@ organization: ${organization}
 repo: ${name}
 ---
 <section
-id="intro"
-aria-labelledby="intro"
-data-item="Introduction"
+  id="intro"
+  aria-labelledby="intro"
+  data-item="Introduction"
 >
-<h2><a href="#intro">Introduction</a></h2>
+  <h2><a href="#intro">Introduction</a></h2>
 
 To create your own content, edit the file at ${'`'}docs/md/99-Intro.md${'`'} and add more ${'`'}.md${'`'} files in the ${'`'}docs/md/${'`'} folder.
 

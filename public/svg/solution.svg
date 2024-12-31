@@ -1,0 +1,61 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 0 100 100"
+  
+  stroke="#fff"
+  stroke-width="4"
+  fill="none"
+>
+
+  <g
+    transform-origin="50 50"
+  >
+    <path
+      id="piece"
+      d="
+      M 38 62
+      h 10
+      a 3 3 0 0 0 3 -3
+      v -1
+      a 6 6 0 0 1 6 -6
+      a 6 6 0 0 1 6 6
+      v 1
+      a 3 3 0 0 0 3 3
+      h 10
+      v 30
+      a 6 6 0 0 1 -6 6
+      h -30
+      v -10
+      a 3 3 0 0 1 3 -3
+      h 1
+      a 6 6 0 0 0 6 -6
+      a 6 6 0 0 0 -6 -6
+      h -1
+      a 3 3 0 0 1 -3 -3
+      v -10
+      "
+    />
+  </g>
+  <use
+    href="#piece"
+    x="0"
+    y="0"
+    transform="rotate(90)"
+    transform-origin="40 62"
+  />
+  <use
+    href="#piece"
+    x="0"
+    y="0"
+    transform="rotate(180)"
+    transform-origin="40 62"
+  />
+  <use
+    href="#piece"
+    x="29"
+    y="-18"
+    transform="rotate(315)"
+    transform-origin="40 62"
+  />
+</svg>
