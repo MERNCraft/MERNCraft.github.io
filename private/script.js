@@ -21,29 +21,36 @@
       replace.innerHTML = "Replace the placeholder links below with working links to your own tutorials.<br><br>See <code>private/tutorials.json</code> for inspiration."
     }
 
-    tutorials.forEach(({ name, url, description, icon }) => {
-      const li = document.createElement("li")
-      const a = document.createElement("a")
-      const div = document.createElement("div")
-      const h3 = document.createElement("h3")
-      const img = document.createElement("img")
-      const span = document.createElement("span")
+    tutorials.forEach(({
+      url,
+      name="",
+      description="",
+      icon="private/icons/default.svg"
+    }) => {
+      if ( url && ( name  || description )) {
+        const li = document.createElement("li")
+        const a = document.createElement("a")
+        const div = document.createElement("div")
+        const h3 = document.createElement("h3")
+        const img = document.createElement("img")
+        const span = document.createElement("span")
 
-      a.href = url
-      img.src = icon
-      img.alt = icon.replace(/\..*$/, "")
+        a.href = url
+        img.src = icon
+        img.alt = ""
 
-      h3.innerText = name
-      span.innerText = description
+        h3.innerText = name
+        span.innerText = description
 
-      div.append(h3)
-      div.append(span)
+        div.append(h3)
+        div.append(span)
 
-      a.append(img)
-      a.append(div)
+        a.append(img)
+        a.append(div)
 
-      li.append(a)
-      ul.append(li)
+        li.append(a)
+        ul.append(li)
+      }
     })
   }
 })()
