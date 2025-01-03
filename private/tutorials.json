@@ -8,5 +8,10 @@
     "url": "/register-login",
     "description": "using Express, Mongoose and JSON Web Tokens",
     "icon": "private/icons/login.svg"
+  },
+  { "name": "Pure CSS Games",
+    "url": "/Pure-CSS-Games",
+    "description": "Part 1: Using CSS counters in creative ways",
+    "icon": "private/icons/pure-css-games.webp"
   }
 ]
