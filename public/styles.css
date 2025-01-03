@@ -213,7 +213,7 @@ figure {
   margin: 0;
 
   figcaption {
-    margin-bottom: 3em;
+    margin: 1em 0 3em;
     text-align: center;
     text-decoration: underline;
     color: var(--mid);
@@ -272,6 +272,14 @@ code s * {
   font-style: italic;
   filter: none;
   text-decoration-thickness: 2px;
+
+  /* Don't let the user copy deleted text */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 code u,
@@ -676,6 +684,14 @@ details {
     border-left-style: solid;
   }
 
+  /* Don't number figures inside details, because they might
+    be closed, which would upset the numbering system.
+  */
+  figcaption::before {
+    content: "";
+    counter-increment: fig 0;
+  }
+
   summary {
     position: relative;
     font-size: 1.25em;
@@ -891,7 +907,12 @@ details .skip {
   }
 }
 
-
 .no-margin * {
   margin: 1em 0;
+}
+
+iframe {
+  margin: 2em auto;
+  display: block;
+  border: none;
 }
