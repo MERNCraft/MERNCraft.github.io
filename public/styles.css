@@ -213,7 +213,7 @@ figure {
   margin: 0;
 
   figcaption {
-    margin: 1em 3em;
+    margin: 1em 0 3em;
     text-align: center;
     text-decoration: underline;
     /* color: var(--lighter); */
@@ -685,8 +685,8 @@ details {
   }
 
   /* Don't number figures inside details, because they might
-     be closed, which would upset the numbering system.
-   */
+    be closed, which would upset the numbering system.
+  */
   figcaption::before {
     content: "";
     counter-increment: fig 0;
@@ -907,11 +907,9 @@ details .skip {
   }
 }
 
-
 .no-margin * {
   margin: 1em 0;
 }
-
 
 iframe {
   margin: 2em auto;

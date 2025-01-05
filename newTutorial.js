@@ -381,7 +381,7 @@ If this ${'`'}index.html${'`'} page has opened in your browser, then your Markdo
 
 This tutorial will explain how to publish this demo tutorial, unchanged, on GitHub.
 
-![](https://htm-elves.github.io/public/nodoc.webp)
+![](https://htm-elves.github.io/public/nodoc.svg)
 
 <details
 class="tip"
