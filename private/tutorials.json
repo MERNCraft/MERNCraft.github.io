@@ -13,5 +13,10 @@
     "url": "/Pure-CSS-Games",
     "description": "Part 1: Using CSS counters in creative ways",
     "icon": "private/icons/pure-css-games.webp"
+  },
+  { "name": "Serve a React Frontend with Express",
+    "url": "/vite-react-express",
+    "description": "Build a workflow to use your Express backend to serve the files for your Vite React frontend",
+    "icon": "private/icons/vi-re-ex.webp"
   }
 ]
