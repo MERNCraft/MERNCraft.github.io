@@ -1,22 +1,22 @@
 [
-  { "name": "01 - Getting Started",
-    "url": "/Getting-Started",
-    "description": "Setting up your own HTM-Elves workflow",
-    "icon": "public/svg/env.svg"
+  { "name": "What CORS does and does not do",
+    "url": "/CORS",
+    "description": "Using VS Code's debugger to explore the CORS node module",
+    "icon": "private/icons/cors.webp"
   },
-  { "name": "02 - Writing Your Own Tutorials",
-    "url": "/Writing-Your-Own-Tutorials",
-    "description": "Writing in Markdown using pre-defined snippets",
-    "icon": "public/svg/pages.svg"
+  { "name": "User Registration and Log In",
+    "url": "/register-login",
+    "description": "using Express, Mongoose and JSON Web Tokens",
+    "icon": "private/icons/login.svg"
   },
-  { "name": "03 - Using-CSS-Counters",
-    "url": "/Using-CSS-Counters",
-    "description": "Mini tutorial to accompany \"Writing Your Own Tutorials\"",
-    "icon": "private/icons/counters.webp"
+  { "name": "Pure CSS Games",
+    "url": "/Pure-CSS-Games",
+    "description": "Part 1: Using CSS counters in creative ways",
+    "icon": "private/icons/pure-css-games.webp"
   },
-  { "name": "03 - Building HTM-Elves from Scratch",
-    "_url_": "/Building-From-Scratch",
-    "description": "Understanding how HTM-Elves works, step-by-step, and learning how to customize it",
-    "icon": "public/svg/tldr.svg"
+  { "name": "Serve a React Frontend with Express",
+    "url": "/vite-react-express",
+    "description": "Build a workflow to use your Express backend to serve the files for your Vite React frontend",
+    "icon": "private/icons/vi-re-ex.webp"
   }
 ]

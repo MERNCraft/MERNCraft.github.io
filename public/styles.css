@@ -81,7 +81,7 @@ header {
   border-bottom: 1px solid var(--mid);
 
   & h1 {
-    margin-bottom: 0;
+    margin: 0.75em 0 0;
   }
   & h3 {
     margin-top: 0;
@@ -92,11 +92,25 @@ header {
   }
   & h4 {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 6px;
+    right: 36px;
     margin: 0;
-    color: #888;
+    opacity: 0.2;
     text-decoration: none;
+  }
+
+  a {
+    position: absolute;
+    right: 0;
+
+    img {
+      width: 1.8em;
+      opacity: 0.2;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
   }
 }
 
@@ -197,7 +211,10 @@ body:not(:has(#pages:checked)) {
 
 /* CONTENT // CONTENT // CONTENT // CONTENT // CONTENT */
 
-
+h1 {
+  font-size: 2em;
+  text-align: center;
+}
 /* h2,
 h4 {
   text-decoration: underline;
@@ -216,7 +233,6 @@ figure {
     margin: 1em 0 3em;
     text-align: center;
     text-decoration: underline;
-    color: var(--mid);
 
     &::before {
       counter-increment: fig;
@@ -396,7 +412,8 @@ table {
     text-align: left;
   }
   td {
-    padding: 0.25em 0.5em;
+    padding: 0.5em;
+    border-bottom: 0.5px solid var(--light);
   }
   th:last-child,
   td:last-child {
@@ -443,6 +460,12 @@ a.external span {
 
 a.external:visited {
   color: #bdf;
+}
+
+a[download] {
+  border: 1px outset black;
+  border-radius: 0.5em;
+  padding: 0.25em 0.5em;
 }
 
 /* Footer */
