@@ -18,5 +18,10 @@
     "url": "/vite-react-express",
     "description": "Build a workflow to use your Express backend to serve the files for your Vite React frontend",
     "icon": "private/icons/vi-re-ex.webp"
+  },
+  { "name": "Nail It!",
+    "future-url": "/Nail-It",
+    "description": "Create very simple NodeJS game for the Terminal that will beat you whenever it gets the chance",
+    "icon": "private/icons/nail-it.webp"
   }
 ]
