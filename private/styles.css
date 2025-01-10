@@ -23,7 +23,6 @@ body {
 main {
   padding: 1em;
   box-shadow: 3px 3px 10px var(--black);
-  max-width: 420px;
 
   footer {
     color: var(--mid);
@@ -37,10 +36,10 @@ main {
     text-align: left;
   }
 
-  /* div.overview p:first-child {
+  div.overview p:first-child {
     font-size: 1.4em;
     font-weight: bold;
-  } */
+  }
 
   ul {
     list-style-type: none;
