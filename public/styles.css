@@ -765,6 +765,11 @@ details {
     padding: var(--gap);
     margin: var(--nip);
     background-color: var(--bg-color);
+
+    h2 {
+      display: inline;
+      font-size: 1.5rem;
+    }
   }
 
   summary::after {
