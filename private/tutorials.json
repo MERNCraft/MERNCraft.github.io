@@ -20,7 +20,7 @@
     "icon": "private/icons/vi-re-ex.webp"
   },
   { "name": "Nail It!",
-    "future-url": "/Nail-It",
+    "url": "/Nail-It",
     "description": "Create very simple NodeJS game for the Terminal that will beat you whenever it gets the chance",
     "icon": "private/icons/nail-it.webp"
   }
